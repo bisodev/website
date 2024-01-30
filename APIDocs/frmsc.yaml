@@ -1,0 +1,1214 @@
+openapi: 3.0.2
+info: 
+  title: SAFE API Reference
+  description: |+ 
+               This is the API reference documentation for getting fatigue and fatigue risk results from SAFE APIs.
+
+               First, get your API key, the ClientID, and a Client Secret from the web app. Your ClientID and Client Secret are used to authenticate and authorise your requests. Here are a few things to be aware of when using FRMSc APIs.
+               
+               <ul>
+                <li>FRMSc SAFE APIs use OAuth2.0 Client Credential flow.</li>
+                <li>To make a request, you should first authenticate to get a bearer token, which you must pass to SAFE API endpoints via the Authorization header.</li>
+                <li>By default, the bearer token expires after 1 hour - we can change this for you on request.</li>
+                <li>Client Secrets are not stored anywhere so you must generate a new secret if lost or forgotten.</li>
+                <li>You can learn about the workflow of these APIs in <a target="_parent" href ="../safe_app_api">FRMSc SAFE App workflow</a> and <a target="_parent" href ="../safe_swift_api">FRMSc SAFE Swift workflow</a>.</li>
+               </ul> 
+               
+               If you encounter an error, it is usually due to an issue with the uploaded data. Review the error message on how to resolve the issue. You can also refer to our <a target="_parent" href="../errors/">Troubleshooting guide</a> for more information. If the error message persists, contact support.
+               <br /><br /><br />
+               <div class="sub-title regular-font">API Server</div>
+               <ul>
+                <li>https://identity-eu.frmsc.com - The identity server</li>
+                <li>https://web-eu.frmsc.com - The SAFE Application server</li>
+                <li>https://api-eu.frmsc.com - The SAFE Swift server </li>
+
+               </ul>
+  version: 2.0.0
+tags:
+  - 
+    name: Token
+    description: Use to generate a bearer token that will be used to authorise your requests to SAFE API endpoints.
+  - 
+    name: SAFE Application
+    description: Use these endpoints to upload rosters and view fatigue and fatigue risk results. If you submit roster data through these endpoints, you can also view the roster data and the results from the web UI.
+  - 
+    name: SAFE Swift
+    description: Use these endpoints to get fatigue and fatigue risk results without saving the roster data in the SAFE web UI. If you submit roster data through these endpoints, you won't be able to view the roster data and the results from the web UI.
+
+security:
+  - oAuth2ClientCredentials: []
+  - basicAuth: []
+  - bearerAuth: []
+  
+paths:
+  /connect/token:
+    post:
+      tags:
+        - Token
+      description: |+
+        This endpoint is used to generate a bearer token that will be used to authenticate and authorise your requests to SAFE API endpoints. Note:
+        <br /><br />
+        1\. This endpoint is the token URL for the client credential flow in the OAuth 2.0 Authorization. <br /><br />
+        2\. Send <b>Authorization</b> in header and set the value of this header to the word <b>Basic</b> followed by a space and a base64 encoded string of <b>ClientID:ClientSecret</b>. <br /><br />
+        3\. You can use <a href ="https://www.base64encode.org">base64encode.org</a> to encode or decode the string manually.<br /><br />
+        4\. If you are sending to this endpoint from an API testing tool, use basic authorization and assign your Client ID to the <b>username</b> field and your Client Secret to the <b>password</b> field.
+      summary: |+
+        Generate a bearer token using [Host server: https://identity-eu.frmsc.com]
+      requestBody:
+        description: The following properties must be included in the request body to send a request to the endpoint.
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - grant_type
+                - scope
+              properties:
+                grant_type:
+                  type: string
+                  description: The type of grant this token will provide. Always set this value to <b>client_credentials</b>
+                  example: client_credentials
+                scope:
+                  type: string
+                  description: The scope of the token. Check that the FRMSc team gave you access to the API matching the scope you are requesting. Send one of the following values <ul><li><code>frmsc_safe_upload_api</code> if you want to generate a token for SAFE Application API</li><li><code>frmsc_fast_safe_api</code> if you want to generate a token for SAFE Swift API Fatigue endpoint</li><li><code>frmsc_fast_safe_risk_api</code> if you want to generate a token for SAFE Swift API Fatigue Risk endpoint</li></ul>
+                  example: frmsc_safe_upload_api
+      responses:
+        200:
+          description: Successful Operations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        400:
+          description: Invalid Client
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: The error message
+              examples:
+                Invalid Client:
+                  value:
+                    error: invalid_client
+                Invalid Grant Type:
+                  value:
+                    error: unsupported_grant_type
+                Invalid scope:
+                  value:
+                    error: invalid_scope
+      security:
+        - basicAuth: []
+      servers:
+        - url: https://identity-eu.frmsc.com
+          description: The identity server.
+      x-code-samples:
+        - lang: 'C#'
+          source: |
+            
+            var identityUrl = "https://identity-eu.frmsc.com";
+            var clientId = "[Your_ClientId]";
+            var clientSecret = "[your_ClientSecret]";
+            var scope = "frmsc_safe_upload_api";
+
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(identityUrl);
+
+            var openIdDiscoveryDocument = client.GetDiscoveryDocumentAsync(identityUrl).GetAwaiter().GetResult();
+
+            var request = new ClientCredentialsTokenRequest
+            {
+                Address = openIdDiscoveryDocument.TokenEndpoint,
+
+                ClientId = clientId,
+                ClientSecret = clientSecret,
+                Scope = scope
+            };
+
+            var tokenResponse = await client.RequestClientCredentialsTokenAsync(request);
+            if (tokenResponse != null)
+            {
+                return tokenResponse.AccessToken;
+            }
+            else
+            {
+                Console.WriteLine("Authentication failed");
+                throw new Exception("Authentication failed");
+            }
+  /api/UploadRoster:
+    post:
+      tags:
+        - SAFE Application
+      description: |+
+        This endpoint is used to upload your rosters to FRMSc's SAFE app for processing. You will require a bearer token to authenticate and authorise your requests to this API endpoint.
+        Submit the token generated using the token endpoint as bearer auth to the <code>Authorization</code> header of this endpoint.
+      summary: |+
+        Upload your rosters [Host server: https://web-eu.frmsc.com]
+      requestBody:
+        $ref: '#/components/requestBodies/UploadRoster'
+      responses:
+        200:
+          description: Successful Operations
+          content:
+            application/json:
+              schema:
+                type: string
+                description: The roster token
+                example: 9e529abf-6b2f-4a17-92de-d1cfc85976db
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    description: The error RFC
+                  title:
+                    type: string
+                    description: The error message
+                  status:
+                    type: number
+                    description: The HTTP status code
+                  traceId:
+                    type: string
+                    description: The trace UUID for the error
+              examples:
+                Server error:
+                  value:
+                    type: https://tools.ietf.org/html/rfc7231#section-6.6.1
+                    title: An error occurred while processing your request.
+                    status: 500
+                    traceId: 00-5da3608bc734ff5380580b0031ac223d-d35f03a95457cb74-00           
+      security:
+        - oAuth2ClientCredentials: [frmsc_safe_upload_api]
+        - bearerAuth: []
+      servers:
+        - url: https://web-eu.frmsc.com
+          description: The SAFE Application server
+      x-code-samples:
+        - lang: 'C#'
+          source: |
+            
+            var apiKey = "[Your_APIKey]";
+            var apiUrl = "https://web-eu.frmsc.com";
+            accessToken = "[Your_Accesstoken]";
+            rosterCSV = "[Your_roster_data]";
+            clientId = "[Your_ClientId]";
+
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(apiUrl);
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "/api/UploadRoster");
+  
+            request.Version = new Version(2, 0);
+            request.Headers.Add("authorization", $"Bearer {accessToken}");
+
+            var uploadRequest = new UploadRequest
+            {
+                RosterName = "Sample SAFE Application API post",
+                RosterData = rosterCsv,
+                Username = clientId,
+                Key = apiKey,
+                Overwrite = false
+            };
+
+            request.Content = new StringContent(JsonConvert.SerializeObject(uploadRequest), Encoding.UTF8, "application/json");                  
+
+            var response = await client.SendAsync(request);
+            return await response.Content.ReadAsStringAsync();
+  /api/GetResults:
+    get:
+      tags:
+        - SAFE Application
+      description: |+
+        This endpoint is used to get the result of roster processing. You will require the token of the roster you received after uploading the roster, in addition to a bearer token and your API Key.
+        Submit the token generated using the token endpoint as bearer auth to the <code>Authorization</code> header of this endpoint.
+      summary: |+
+        Get roster results or status [Host server: https://web-eu.frmsc.com]
+      parameters:
+        - in: query
+          name: token
+          schema:
+            type: string
+          required: true
+          description: The token you received after successfully uploading a Roster
+          example: 762bfb1e-9e10-40e2-99ac-162e0c653818
+        - in: query
+          name: dataKey
+          schema:
+            type: string
+          required: true
+          description: |+
+            The type of results you want to retrieve. The following values are supported for the dataKey parameter. Send <b>only one value</b> at a time.
+            <ul>
+              <li>status</li>
+              <li>feedback</li>
+              <li>hundredpointalertness</li>
+              <li>samnperellialertness</li>
+              <li>karolinskaalertness</li>
+              <li>karolinskaprobability</li>
+              <li>vigilancedegradation</li>
+              <li>complexreactiondegradation</li>
+              <li>percentagemissedresponses</li>
+              <li>sleepperiods</li>
+              <li>schedule</li>
+              <li>timeabovethreshold</li>
+              <li>tableofscheduledetailsids</li>
+            </ul>
+            To check the algorithmic results, first set the value of the <b>dataKey</b> parameter to <b>status</b> and check for the response. After the response is <b>completedsuccessfully</b>, start querying for the algorithmic results.<br /><br />
+          example: status
+        - in: query
+          name: key
+          schema:
+            type: string
+          required: true
+          description: Your API Key
+          example: 90CBF21C-33D4-4C32-944A-22A0C416DF89
+      responses:
+        200:
+          description: Successful Operations
+          content:
+            application/json:
+              schema:
+                type: string
+                description: The result
+              examples: 
+                Feedback:
+                  value:
+                    Roster import and process was successful <Roster name>
+                Result:
+                  value: |+
+                    Reference,Duty,Duty Start,Duty End,Duty Start Date,Duty Start Time,Duty End Date,Duty End Time,00 - 15 Mins,15 - 30 Mins,30 - 45 Mins,45 - 60 Mins,60 - 75 Mins,75 - 90 Mins,90 - 105 Mins,105 - 120 Mins,120 - 135 Mins,135 - 150 Mins,150 - 165 Mins,165 - 180 Mins,180 - 195 Mins,195 - 210 Mins,210 - 225 Mins,225 - 240 Mins,240 - 255 Mins,255 - 270 Mins,270 - 285 Mins,285 - 300 Mins,300 - 315 Mins,315 - 330 Mins,330 - 345 Mins,345 - 360 Mins,360 - 375 Mins,375 - 390 Mins,390 - 405 Mins,405 - 420 Mins,420 - 435 Mins,435 - 450 Mins,450 - 465 Mins,465 - 480 Mins,480 - 495 Mins,495 - 510 Mins
+                    Pilot1,KSNA / SNA / N/A - KRSW / RSW / N/A,13/05/2010 02:45,13/05/2010 11:07,13/05/2010,02:45,13/05/2010,11:07,9.11,9.42,9.77,10.16,10.60,11.07,11.58,12.14,12.73,13.36,14.03,14.74,15.49,16.27,17.09,17.95,18.84,19.76,20.70,21.67,22.73,23.65,24.55,25.42,26.82,27.77,28.68,29.56,30.80,31.69,32.54,33.35,34.34,
+                Status - Error:
+                  value:
+                    completedwitherror
+                Status - Success:
+                  value:
+                    completedsuccessfully
+                Status - Processing:
+                  value:
+                    processing
+                Upload error:
+                  value: 
+                    Unrecognised column heading "OnDDDutyDate", "Error on line 3....."
+        204:
+          description: No content. Check the dataKey
+        401:
+          description: 401 Unauthorized. Check Authorization token.
+        404:
+          description: Upload not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: The error message
+                example: upload not found. invalid token
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    description: The error RFC
+                  title:
+                    type: string
+                    description: The error message
+                  status:
+                    type: number
+                    description: The HTTP status code
+                  traceId:
+                    type: string
+                    description: The trace UUID for the error
+              examples:
+                Server error:
+                  value:
+                    type: https://tools.ietf.org/html/rfc7231#section-6.6.1
+                    title: An error occurred while processing your request.
+                    status: 500
+                    traceId: 00-5da3608bc734ff5380580b0031ac223d-d35f03a95457cb74-00           
+      security:
+        - oAuth2ClientCredentials: [frmsc_safe_upload_api]
+        - bearerAuth: []
+      servers:
+        - url: https://web-eu.frmsc.com
+          description: The SAFE Application server
+      x-code-samples:
+        - lang: 'C#'
+          source: |
+            
+            var apiKey = "[Your_APIKey]";
+            var apiUrl = "https://web-eu.frmsc.com";
+            accessToken = "[Your_Accesstoken]";
+            rosterToken = "762bfb1e-9e10-40e2-99ac-162e0c653818";
+            dataKey = "status";
+
+            var queryString = string.Format("?token={0}&key={1}&dataKey={2}", rosterToken, apiKey, dataKey);
+
+            var request = new HttpRequestMessage(HttpMethod.Get, "/api/GetResults" + queryString);
+
+            request.Version = new Version(2, 0);
+            request.Headers.Add("authorization", $"Bearer {accessToken}");
+
+            var response = await client.SendAsync(request);
+            return await response.Content.ReadAsStringAsync();                
+  /api/Launch:
+    get:
+      tags:
+        - SAFE Application
+      description: |+
+        This endpoint gets the URL to navigate to an uploaded roster directly. You will require the token of the roster you received after uploading the roster, the bearer token, and your API Key.
+        Submit the token generated using the token endpoint as bearer auth to the <code>Authorization</code> header of this endpoint.
+      summary: |+
+        Get the direct link to the uploaded roster [Host server: https://web-eu.frmsc.com]
+      parameters:
+        - in: query
+          name: token
+          schema:
+            type: string
+          required: true
+          description: The token you received after successfully uploading a Roster
+          example: 5471e010-ddee-4c98-ff8f-08db2245e372
+        - in: query
+          name: apiKey
+          schema:
+            type: string
+          required: true
+          description: Your API Key. <b>Note that the parameter name is spelt apiKey</b>.
+          example: 90CBF21C-33D4-4C32-944A-22A0C416DF89
+      responses:
+        200:
+          description: Successful Operations
+          content:
+            application/json:
+              schema:
+                type: string
+                description: The URL
+                example: https://frmsc.azurewebsites.net/Safe/Schedules/100
+        404:
+          description: Resource not found
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    description: The error RFC
+                  title:
+                    type: string
+                    description: The error message
+                  status:
+                    type: number
+                    description: The HTTP status code
+                  traceId:
+                    type: string
+                    description: The trace UUID for the error
+              examples:
+                Server error:
+                  value:
+                    type: https://tools.ietf.org/html/rfc7231#section-6.6.1
+                    title: An error occurred while processing your request.
+                    status: 500
+                    traceId: 00-5da3608bc734ff5380580b0031ac223d-d35f03a95457cb74-00           
+      security:
+        - oAuth2ClientCredentials: [frmsc_safe_upload_api]
+        - bearerAuth: []
+      servers:
+        - url: https://web-eu.frmsc.com
+          description: The SAFE Application server
+      x-code-samples:
+        - lang: 'C#'
+          source: |
+            
+            var apiKey = "[Your_APIKey]";
+            var apiUrl = "https://web-eu.frmsc.com";
+            accessToken = "[Your_Accesstoken]";
+            rosterToken = "762bfb1e-9e10-40e2-99ac-162e0c653818";
+
+            var queryString = string.Format("?token={0}&apiKey={1}", rosterToken, apiKey);
+
+            var request = new HttpRequestMessage(HttpMethod.Get, "/api/Launch" + queryString);
+
+            request.Version = new Version(2, 0);
+            request.Headers.Add("authorization", $"Bearer {accessToken}");
+
+            var response = await client.SendAsync(request);
+            return await response.Content.ReadAsStringAsync();
+  /api/Processor/ProcessFatigue:
+    post:
+      tags:
+        - SAFE Swift
+      description: |+
+        This endpoint is used to get fatigue scores from your roster data. Roster data submitted through this endpoint won't be uploaded to the SAFE web UI, so you won't be able to view the roster data and fatigue score from the web UI. You will require a bearer token to send requests to this endpoint.
+        Submit the token generated using the token endpoint as bearer auth to the <code>Authorization</code> header of this endpoint.
+      summary: |+
+        Get fatigue score without uploading the roster [Host server: https://api-eu.frmsc.com]
+      requestBody:
+        $ref: '#/components/requestBodies/ProcessFatigue'
+      responses:
+        200:
+          description: Successful Operations
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The processing result
+                properties:
+                  scheduleScores:
+                    type: array
+                    description: A list of Fatigue score against uploaded schedules
+                    items:
+                      type: object
+                      properties:
+                        schedule:
+                          type: string
+                          description: The pilot or the crew member ID
+                        fatigueScores:
+                          type: array
+                          description: An array of the fatigue score in the scale you chose
+                          items:
+                            type: number
+                            description: A fatigue score given for the 15 minute interval.
+                  errors:
+                    type: array
+                    description: The list of errors in the uploaded file
+                    items:
+                      type: string
+                      description: The error message string.
+              examples:
+                Successful result:
+                  value:
+                    schedule: Pilot 1
+                    fatigueScores:
+                            - 3.402
+                            - 3.420 
+                            - 3.445 
+                            - 3.475 
+                            - 3.507 
+                            - 3.540
+                            - 3.574
+                            - 3.606 
+                            - 3.638
+                            - 3.668
+                            - 3.696
+                            - 3.722 
+                            - 3.746 
+                            - 3.768
+                            - 3.787 
+                            - 3.804 
+                            - 3.819
+                            - 3.831 
+                            - 3.839
+                            - 3.847 
+                            - 3.852
+                    errors: []
+                Errors:
+                  value:
+                    scheduleScores: []
+                    errors: ["1|Pilot1|Unrecognised or out of range 'Off duty date' (1/1/0001). Please ensure that the dates defined in the uploaded file match the system settings for the 'Default Date Format' i.e. MM/dd/yyyy.","2|Pilot1|Unrecognised or out of range 'On duty date' (1/1/0001). Please ensure that the dates defined in the uploaded file match the system settings for the 'Default Date Format' i.e. MM/dd/yyyy."]
+        401:
+          description: Authorization error
+        500:
+          description: Internal Server Error
+                
+      security:
+        - oAuth2ClientCredentials: [frmsc_fast_safe_api]
+        - bearerAuth: []
+      servers:
+        - url: https://api-eu.frmsc.com
+          description: The SAFE Swift server.
+      x-code-samples:
+        - lang: 'C#'
+          source: |
+            
+            var apiUrl = "https://api-eu.frmsc.com";
+            accessToken = "[Your_Accesstoken]";
+            rosterCSV = "[Your_roster_data]";
+            dateFormat = "dmy";
+            preferredScale = "SP";
+
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(apiUrl);
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "/api/Processor/ProcessFatigue");
+  
+            request.Version = new Version(2, 0);
+            request.Headers.Add("authorization", $"Bearer {accessToken}");
+
+            var uploadRequest = new UploadRequest
+            {
+                RosterData = rosterCsv,
+                DateFormat = dateFormat,
+                PreferredScale = preferredScale
+            };
+
+            request.Content = new StringContent(JsonConvert.SerializeObject(uploadRequest), Encoding.UTF8, "application/json");                  
+
+            var response = await client.SendAsync(request);
+            return await response.Content.ReadAsStringAsync();
+  /api/Processor/ProcessFatigueRisk:
+    post:
+      tags:
+        - SAFE Swift
+      description: |+
+        This endpoint is used to get fatigue and fatigue risk scores from your roster data. Roster data submitted through this endpoint won't be uploaded to the SAFE web UI, so you won't be able to view the roster data and fatigue risk score from the web UI. You will require a bearer token to send requests to this endpoint.
+        Submit the token generated using the token endpoint as bearer auth to the <code>Authorization</code> header of this endpoint.
+      summary: |+
+        Get fatigue risk score without uploading the roster [Host server: https://api-eu.frmsc.com]
+      requestBody:
+        $ref: '#/components/requestBodies/ProcessFatigueRisk'
+      responses:
+        200:
+          description: Successful Operations
+          content:
+            application/json:
+              schema:
+                type: array
+                description: The processing result
+                items:
+                  type: object
+                  properties:
+                    schedule:
+                      type: string
+                      description: The pilot or the crew member ID
+                    fatigueScores:
+                      type: array
+                      description: An array of the fatigue score in the scale you chose
+                      items:
+                        type: number
+                        description: A fatigue score given for the 15 minute interval.
+                    riskScores:
+                      type: array
+                      description: A list of fatigue risk score against each row of the schedule
+                      items:
+                        type: number
+              examples:
+                Successful result:
+                  value:
+                    schedule: Pilot 1
+                    fatigueScores:
+                            - 3.402
+                            - 3.420 
+                            - 3.445 
+                            - 3.475 
+                            - 3.507 
+                            - 3.540
+                            - 3.574
+                            - 3.606 
+                            - 3.638
+                            - 3.668
+                            - 3.696
+                            - 3.722 
+                            - 3.746 
+                            - 3.768
+                            - 3.787 
+                            - 3.804 
+                            - 3.819
+                            - 3.831 
+                            - 3.839
+                            - 3.847 
+                            - 3.852
+                            - ...
+                    riskScores: 
+                      - 12.7382
+                      - 16.520624336581236
+        401:
+          description: Authorization error
+        500:
+          description: Internal Server Error                    
+      security:
+        - oAuth2ClientCredentials: [frmsc_fast_safe_risk_api]
+        - bearerAuth: []
+      servers:
+        - url: https://api-eu.frmsc.com
+          description: The SAFE Swift server.
+      x-code-samples:
+        - lang: 'C#'
+          source: |
+            
+            var apiUrl = "https://api-eu.frmsc.com";
+            accessToken = "[Your_Accesstoken]";
+            rosterCSV = "[Your_roster_data]";
+            dateFormat = "dmy";
+            preferredScale = "SP";
+
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(apiUrl);
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "/api/Processor/ProcessFatigueRisk");
+  
+            request.Version = new Version(2, 0);
+            request.Headers.Add("authorization", $"Bearer {accessToken}");
+
+            var uploadRequest = new UploadRequest
+            {
+                RosterData = rosterCsv,
+                DateFormat = dateFormat,
+                PreferredScale = preferredScale
+            };
+
+            request.Content = new StringContent(JsonConvert.SerializeObject(uploadRequest), Encoding.UTF8, "application/json");                  
+
+            var response = await client.SendAsync(request);
+            return await response.Content.ReadAsStringAsync();
+components:
+  schemas:
+    Token:
+      type: object
+      properties:
+        access_token:
+          type: string
+          format: JWT
+          description: The access token that you must use with SAFE Application API endpoints
+          example: eyJhbGciOiJSUzI1NiIsImtpZCI6IjBFNUMxNEU4OEIzRjFFMEFCNDlGNUIzMkU5NzNDMDQ0NkY0MjJDRURSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6IkRsd1U2SXNfSGdxMG4xc3k2WFBBUkc5Q0xPMCJ9.eyJuYmYiOjE3MDQ3Njc5MDUsImV4cCI6MTcwNDc3MTUwNSwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS1ldS5mcm1zYy5jb20iLCJhdWQiOiJmcm1zY19zYWZlX3VwbG9hZF9hcGkiLCJjbGllbnRfaWQiOiI1NDcxRTAxMC1EREVFLTRDOTgtRkY4Ri0wOERCMjI0NUUzNzIiLCJqdGkiOiI3NDg1QUU0MDhGMzI5OEJDMDMwN0E0NzBCNjRENjdGQSIsImlhdCI6MTcwNDc2NzkwNSwic2NvcGUiOlsiZnJtc2Nfc2FmZV91cGxvYWRfYXBpIl19.1_BbP0cUAvzp4JX8Ix18zy3w6GQLjp-vXTIPxMqfcTNS2abb90YDaJDLPAc7scyeiueacyohTLtdURSAKXohEfuVw1qB3pgT9-mRLr69wBGUjlbDjsIpURJuHtqcKRIbv2QK-DLvtcVJlRmmOe3XTan_QLAsN2vga6otz6phcvt5_e5XRk7cBlvpl6iLgcO1wXkDqtUNt58DYiUZ3oxibgSve0jYIbaqpR3VcuThs167eJZlRJHcYjWPR0j73OJ36crwdajOKjbycAlkAGv9pm1eTCut6AAkJevZg5Hn3NbIgBpee4DEmQi1T_hpHuM9w3Ipup15QRz7eXhJmTPg5A
+        expires_in:
+          type: integer
+          description: The time (<b>in seconds</b>) this token will remain active after it is generated
+          example: 3600
+        token_type:
+          type: string
+          description: The type of token
+          example: Bearer
+          default: Bearer
+        scope:
+          type: string
+          description: The API for which this token will be valid. 
+          example: frmsc_safe_upload_api
+    RosterData:
+      type: string
+      description: |+
+        The roster data. See the table below for the column names. Note:
+        <ul>
+          <li>The columns must be in the same order as listed below.</li>
+          <li>You can omit the column titles. In such a case, the order in which the column titles are listed below will be assumed.</li>
+          <li>You can send multiple rows at a time.</li>
+          <li>You can fill in the required columns and delete the others.</li>
+          <li>If you are sending the data to a column that is not required, you must send all columns. The columns without data can be left blank.</li>
+        </ul>
+        <br />
+        <table>
+          <tr>
+            <th>ColumnName<br />(<span style="color:red">*</span> required)</th>
+            <th>Format</th>
+            <th>Description</th>          
+          </tr>
+          <tr>
+            <td>Reference<span style="color:red">*</span></td>
+            <td>Text</td>
+            <td>A free-text field usually used to indicate a pilot. Use pilot's name or ID.</td>
+          </tr>
+          <tr>
+            <td>OnDutyDate<span style="color:red">*</span></td>
+            <td>Date (DD/MM/YYYY)</td>
+            <td>The duty start date.</td>
+          </tr>
+          <tr>
+            <td>OnDutyTime<span style="color:red">*</span></td>
+            <td>Time (hh:mm)</td>
+            <td>The duty start time.</td>
+          </tr>
+          <tr>
+            <td>StartAirport<span style="color:red">*</span></td>
+            <td>Text</td>
+            <td>The airport at which the duty started. Send ICAO, IATA, or FAA airport codes or a combination of these codes.</td>
+          </tr>
+          <tr>
+            <td>OffDutyDate<span style="color:red">*</span></td>
+            <td>Date (DD/MM/YYYY)</td>
+            <td>The duty end date.</td>
+          </tr>
+          <tr>
+            <td>OffDutyTime<span style="color:red">*</span></td>
+            <td>Time (hh:mm)</td>
+            <td>The duty end time.</td>
+          </tr>
+          <tr>
+            <td>EndAirport<span style="color:red">*</span></td>
+            <td>Text</td>
+            <td>The airport at which the duty ended. Send ICAO, IATA, or FAA airport codes or a combination of these codes.</td>
+          </tr>
+          <tr>
+            <td>Sectors</td>
+            <td>Number</td>
+            <td>The number of flights in duty. Default value is 1.</td>
+          </tr>
+          <tr>
+            <td>CrewComposition</td>
+            <td>Number</td>
+            <td>Send <ul><li><b>2</b> for 2 Pilots</li><li><b>3</b> for 3 Pilots</li><li><b>4</b> for 4 Pilots</li><li><b>9</b> for Cabin Crew</li></ul>Default value is 2.</td>
+          </tr>
+          <tr>
+            <td>SleepCount</td>
+            <td>Number (0-2)</td>
+            <td>The number of sleeps the pilot or the crew member slept on duty.</td>
+          </tr>
+          <tr>
+            <td>SleepOrder</td>
+            <td>Number (1-3)</td>
+            <td>The rank, which the pilot or the crew member slept in. Send <ul><li><b>1</b> for First</li><li><b>2</b> for Second</li><li><b>3</b> for Third</li></ul></td>
+          </tr>
+          <tr>
+            <td>SleepClass</td>
+            <td>Number (1-5)</td>
+            <td>Send <ul><li><b>1</b> for Class 1 - Bunk</li><li><b>2</b> for Class 2 - Cabin seat: 40 degrees or more recline</li><li><b>3</b> for Class 3 - Flight deck seat</li><li><b>4</b> for Class 4 - Economy seat: Less than 40 degrees recline</li><li><b>5</b> for Class 5 - Jump seat</li></ul></td>
+          </tr>
+          <tr>
+            <td>HomeBase<span style="color:red">*</span></td>
+            <td>Text</td>
+            <td>Send ICAO, IATA, or FAA airport codes or a combination of these codes. Default value is Start airport code.</td>
+          </tr>
+          <tr>
+            <td>TimeReference<span style="color:red">*</span></td>
+            <td>Number (0-2)</td>
+            <td>The reference time zone. Send <ul><li><b>0</b> for UTC</li><li><b>1</b> for Base airport timezone</li><li><b>2</b> for Local timezone</li></ul></td>
+          </tr>
+          <tr>
+            <td>OnPartialAugmentDate</td>
+            <td>Date (DD/MM/YYYY)</td>
+            <td>The date on which the pilot or the crew member started their partial agumentation.</td>
+          </tr>
+          <tr>
+            <td>OnPartialAugmentTime</td>
+            <td>Time (hh:mm)</td>
+            <td>The time at which the pilot or the crew member started their partial agumentation.</td>
+          </tr>
+          <tr>
+            <td>OffPartialAugmentDate</td>
+            <td>Date (DD/MM/YYYY)</td>
+            <td>The date on which the pilot or the crew member ended their partial agumentation.</td>
+          </tr>
+          <tr>
+            <td>OffPartialAugmentTime</td>
+            <td>Time (hh:mm)</td>
+            <td>The time at which the pilot or the crew member ended their partial agumentation.</td>
+          </tr>
+          <tr>
+            <td>FirstRestStartDate</td>
+            <td>Date (DD/MM/YYYY)</td>
+            <td>The date on which the pilot or the crew member started their first rest.</td>
+          </tr>
+          <tr>
+            <td>FirstRestStartTime</td>
+            <td>Time (hh:mm)</td>
+            <td>The time at which the pilot or the crew member started their first rest.</td>
+          </tr>
+          <tr>
+            <td>FirstRestEndDate</td>
+            <td>Date (DD/MM/YYYY)</td>
+            <td>The date on which the pilot or the crew member ended their first rest.</td>
+          </tr>
+          <tr>
+            <td>FirstRestEndTime</td>
+            <td>Time (hh:mm)</td>
+            <td>The time at which the pilot or the crew member ended their first rest.</td>
+          </tr>
+          <tr>
+            <td>SecondRestStartDate</td>
+            <td>Date (DD/MM/YYYY)</td>
+            <td>The date on which the pilot or the crew member started their second rest.</td>
+          </tr>
+          <tr>
+            <td>SecondRestStartTime</td>
+            <td>Time (hh:mm)</td>
+            <td>The time at which the pilot or the crew member started their second rest.</td>
+          </tr>
+          <tr>
+            <td>SecondRestEndDate</td>
+            <td>Date (DD/MM/YYYY)</td>
+            <td>The date on which the pilot or the crew member ended their second rest.</td>
+          </tr>
+          <tr>
+            <td>SecondRestEndTime</td>
+            <td>Time (hh:mm)</td>
+            <td>The time at which the pilot or the crew member ended their second rest.</td>
+          </tr>
+          <tr>
+            <td>SplitShift</td>
+            <td>Number (0-1)</td>
+            <td>Indicates whether the pilot or crew member had rested in between flight. Send <ul><li><b>0</b> for True</li><li><b>1</b> for False</li></ul></td>
+          </tr>
+          <tr>
+            <td>DutyType</td>
+            <td>Number (1-3)</td>
+            <td>The type of duty. Send <ul><li><b>1</b> for active</li><li><b>2</b> for active - split shift</li><li><b>3</b> for standby duty</li></ul></td>
+          </tr>
+          <tr>
+            <td>Fleet</td>
+            <td>Text</td>
+            <td>A free-text field used to indicate fleet message.</td>
+          </tr>
+          <tr>
+            <td>Rank</td>
+            <td>Text</td>
+            <td>A free-text field used to indicate a pilot's rank.</td>
+          </tr>
+          <tr>
+            <td>Workload</td>
+            <td>Number</td>
+            <td>When the sector count is 0, send <ul><li><b>0</b> for no activity, i.e. doing nothing but not sleeping</li><li><b>10</b> for average workload on a typical single-sector duty. Equivalent to workload prior to being able to change workload</li><li><b>20</b> for average workload on a typical four-sector duty</li><li><b>30</b> for very high workloads</li><li><b>40</b> for exceptionally high workloads only seen occassionally</li><li><b>50</b> for extremely high workloads only rarely seen</li></ul>When the sector count is more than 0, send <ul><li><b>-50</b> for half the workload of standard flying this number of sectors</li><li><b>0</b> for standard duty workloads flying this number of sectors. Equivalent to workload prior to being able to change workload</li><li><b>100</b> for double the workload of standard flying this number of sectors</li></ul></td>
+          </tr>
+          <tr>
+            <td>CrewPrepTime</td>
+            <td>Number</td>
+            <td>The time taken for crew to prepare. Value indicates minutes. Default value is 60 minutes.</td>
+          </tr>
+          <tr>
+            <td>DutyCommuteTime</td>
+            <td>Number</td>
+            <td>The time taken to commute to the duty. Value indicates minutes. Default value is 60 minutes.</td>
+          </tr>
+        </table>
+    ProcessFatigue:
+      type: object
+      required:
+        - RosterData
+        - SleepData
+        - DateFormat
+        - PreferredScale
+      properties:
+        RosterData:
+          $ref: '#/components/schemas/RosterData'
+        SleepData:
+          type: array
+          description: The sleep data in JSON format. If you provide sleep data, SAFE will not predict sleeps but use the sleep data you have provided. If you want SAFE to predict sleep, pass an empty array.
+          items:
+            type: object
+            properties:
+              ScheduleName:
+                type: string
+                description: The unique identifier of the pilot or the crew member
+                example: Pilot 1
+              SleepStart:
+                type: string
+                format: date-time
+                description: The date and time when the pilot or the crew member started sleeping. The date and time must be in <b>Zulu</b> format.
+                example: 2023-01-02T19:57:00Z
+              SleepEnd:
+                type: string
+                format: date-time
+                description: The date and time when the pilot or the crew member ended their sleep. The date and time must be in <b>Zulu</b> format.
+                example: 2023-01-02T20:30:00Z
+        DateFormat:
+          type: string
+          description: |+
+            The format which is used with the dates present in the roster data. Send <b>only one</b> of the following highlighted value at a time.
+            <ul>
+              <li><code>dmy</code> for DD/MM/YYYY format</li>
+              <li><code>mdy</code> for MM/DD/YYYY format</li>
+            </ul>
+          example: dmy
+        PreferredScale:
+          type: string
+          description: |+
+            The type of scale you want to get the results in. The following values are supported for <code>PreferredScale</code> property. Send <b>only one</b> of the following highlighted value at a time.
+            <ul>
+              <li><code>SP</code> for Samn-Perelli scale</li>
+              <li><code>KSS</code> for Karolinska Sleepiness Scale</li>
+              <li><code>KP</code> for Karolinska Probability scale</li>
+              <li><code>VD</code> for Vigilance Degradation scale</li>
+              <li><code>CRD</code> for Complex Reaction Degradation scale</li>
+              <li><code>PMR</code> for Percentage Missed Responses scale</li>
+            </ul>
+          example: SP
+    ProcessFatigueRisk:
+      type: object
+      required:
+        - RosterData
+        - DateFormat
+        - PreferredScale
+      properties:
+        RosterData:
+          $ref: '#/components/schemas/RosterData'
+        SleepData:
+          type: array
+          description: The sleep data in JSON format. If you provide sleep data, SAFE will not predict sleeps but use the sleep data you have provided. If you want SAFE to predict sleep, pass an empty array.
+          items:
+            type: object
+            properties:
+              ScheduleName:
+                type: string
+                description: The unique identifier of the pilot or the crew member
+                example: Pilot 1
+              SleepStart:
+                type: string
+                format: date-time
+                description: The date and time when the pilot or the crew member started sleeping. The date and time must be in <b>Zulu</b> format.
+                example: 2023-01-02T19:57:00Z
+              SleepEnd:
+                type: string
+                format: date-time
+                description: The date and time when the pilot or the crew member ended their sleep. The date and time must be in <b>Zulu</b> format.
+                example: 2023-01-02T20:30:00Z
+        DateFormat:
+          type: string
+          description: |+
+            The format which is used with the dates present in the roster data. Send <b>only one</b> of the following highlighted value at a time.
+            <ul>
+              <li><code>dmy</code> for DD/MM/YYYY format</li>
+              <li><code>mdy</code> for MM/DD/YYYY format</li>
+            </ul>
+          example: dmy
+        PreferredScale:
+          type: string
+          description: |+
+            The type of scale you want to get the results in. The following values are supported for <code>PreferredScale</code> property. Send <b>only one</b> of the following highlighted value at a time.
+            <ul>
+              <li><code>SP</code> for Samn-Perelli scale</li>
+              <li><code>KSS</code> for Karolinska Sleepiness Scale</li>
+              <li><code>KP</code> for Karolinska Probability scale</li>
+              <li><code>VD</code> for Vigilance Degradation scale</li>
+              <li><code>CRD</code> for Complex Reaction Degradation scale</li>
+              <li><code>PMR</code> for Percentage Missed Responses scale</li>
+            </ul>
+          example: SP
+    UploadRoster:
+      type: object
+      required:
+        - RosterName
+        - RosterData
+        - Key
+      properties:
+        RosterName:
+          type: string
+          description: The name of the roster
+          example: Sample Roster 1
+        RosterData:
+          $ref: '#/components/schemas/RosterData'
+        ActivityData:
+          type: string
+          format: text
+          description: |+
+            The activity data. See the table below for the column names. 
+            <ul>
+              <li>All columns are required if you are sending the activity data.</li>
+              <li>The columns must be in the same order as listed below.</li>
+              <li>You can omit the column titles. In such a case, the order in which the column titles are listed below will be assumed.</li>
+              <li>You can send multiple rows at a time.</li>
+            </ul>
+            <br />
+            <table>
+              <tr>
+                <th>ColumnName</th>
+                <th>Format</th>
+                <th>Description</th>          
+              </tr>
+              <tr>
+                <td>Reference</td>
+                <td>Text</td>
+                <td>A free-text field usually used to indicate a Activity. Use pilot's name or ID.</td>
+              </tr>
+              <tr>
+                <td>ActivityStartDate</td>
+                <td>Date (DD/MM/YYYY)</td>
+                <td>The activity start date.</td>
+              </tr>
+              <tr>
+                <td>ActivityStartTime</td>
+                <td>Time (hh:mm)</td>
+                <td>The activity start time.</td>
+              </tr>
+              <tr>
+                <td>ActivityEndDate</td>
+                <td>Date (DD/MM/YYYY)</td>
+                <td>The activity end date.</td>
+              </tr>
+              <tr>
+                <td>ActivityEndTime</td>
+                <td>Time (hh:mm)</td>
+                <td>The activity end time.</td>
+              </tr>
+              <tr>
+                <td>ActivityType</td>
+                <td>Text</td>
+                <td>Send one of the following <ul><li>Check in</li><li>Flight</li><li>Waiting time</li><li>Time at hotel</li><li>Positioning</li><li>Commuting</li><li>Simulator duty</li><li>Ground duty</li><li>Check out</li></ul></td>
+              </tr>
+              <tr>
+                <td>Description</td>
+                <td>Text</td>
+                <td>A free text field to explain the activity.</td>
+              </tr>
+              <tr>
+                <td>TimeReference</td>
+                <td>Number (0-2)</td>
+                <td>Send <ul><li><b>0</b> for UTC</li><li><b>1</b> for Base</li><li><b>2</b> for Local</li></ul></td>
+              </tr>
+              <tr>
+                <td>StartAirport</td>
+                <td>Time (hh:mm)</td>
+                <td>The airport at which the activity started. Send ICAO, IATA, or FAA airport codes or a combination of these codes.</td>
+              </tr>
+              <tr>
+                <td>EndAirport</td>
+                <td>Text</td>
+                <td>The airport at which the activity ended. Send ICAO, IATA, or FAA airport codes or a combination of these codes.</td>
+              </tr>
+              <tr>
+                <td>Homebase</td>
+                <td>Text</td>
+                <td>The pilot's or the crew member's home airport. Send ICAO, IATA, or FAA airport codes or a combination of these codes. Default value is Start airport code.</td>
+              </tr>
+            </table>
+        Username: 
+          type: string
+          description: The ClientID of the person or the entity uploading this roster
+          example: 5471E010-DDEE-4C98-FF8F-08DB2245E372
+        Key:
+          type: string
+          description: Your API Key
+          example: 90CBF21C-33D4-4C32-944A-22A0C416DF89
+        Overwrite:
+          type: boolean
+          description: Send <b>true</b> if existing roster with the same name should be overwritten by this upload
+          example: "false"
+
+  requestBodies: 
+    UploadRoster:
+      description: The following properties must be included in the request body to send a request to the endpoint.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UploadRoster'
+          examples:
+            Single Row:
+              summary: Single Row in RosterData and ActivityData (with column names)
+              value:
+                RosterName: Sample Roster 1
+                RosterData: "Reference,OnDutyDate,OnDutyTime,StartAirport,OffDutyDate,OffDutyTime,EndAirport,HomeBase,TimeReference\r\nPilot1,12/05/2010,19:45,SNA,13/05/2010,04:07,RSW,SNA,2"
+                ActivityData: "Reference,ActivityStartDate,ActivityStartTime,ActivityEndDate,ActivityEndTime,ActivityType,Description,TimeReference,StartAirport,EndAirport,Homebase\r\nPilot1,12/05/2010,20:30:00,12/05/2010,20:45:00,Check in,,0,SNA,RSW,SNA"
+                Username: 5471E010-DDEE-4C98-FF8F-08DB2245E372
+                Key: 90CBF21C-33D4-4C32-944A-22A0C416DF89
+                Overwrite: "false"
+            Multi Row:
+              summary: Multi Row in RosterData and ActivityData (without column names)
+              value:
+                RosterName: Sample Roster 1
+                RosterData: "Pilot1,12/05/2010,19:45,SNA,13/05/2010,04:07,RSW,SNA,1\r\nPilot1,13/05/2022,11:30,RSW,14/05/2022,20:05,SNA,SNA,2"
+                ActivityData: "Pilot1,01/01/2015,04:30:00,01/01/2015,06:30:00,Flight,,0,SNA,RSW,SNA\r\nPilot1,01/01/2015,04:30:00,01/01/2015,06:30:00,Flight,,0,SNA,RSW,SNA"
+                Username: 5471E010-DDEE-4C98-FF8F-08DB2245E372
+                Key: 90CBF21C-33D4-4C32-944A-22A0C416DF89
+                Overwrite: "false"
+        application/x-www-form-urlencoded:
+          schema:
+            $ref: '#/components/schemas/UploadRoster'
+          examples:
+            Single Row:
+              summary: Single Row in RosterData and ActivityData (with column names)
+              value:
+                RosterName: Sample Roster 1
+                RosterData: |+
+                  Reference,OnDutyDate,OnDutyTime,StartAirport,OffDutyDate,OffDutyTime,EndAirport,HomeBase,TimeReference
+                  Pilot1,12/05/2010,19:45,SNA,13/05/2010,04:07,RSW,SNA,2"
+                ActivityData: |+
+                  Reference,ActivityStartDate,ActivityStartTime,ActivityEndDate,ActivityEndTime,ActivityType,Description,TimeReference,StartAirport,EndAirport,Homebase
+                  Pilot1,12/05/2010,20:30:00,12/05/2010,20:45:00,Check in,,0,SNA,RSW,SNA
+                Username: 5471E010-DDEE-4C98-FF8F-08DB2245E372
+                Key: 90CBF21C-33D4-4C32-944A-22A0C416DF89
+                Overwrite: "false"
+            Multi Row:
+              summary: Multi Row in RosterData and ActivityData (without column names)
+              value:
+                RosterName: Sample Roster 1
+                RosterData: |+
+                  Pilot1,12/05/2010,19:45,SNA,13/05/2010,04:07,RSW,SNA,1
+                  Pilot1,13/05/2022,11:30,RSW,14/05/2022,20:05,SNA,SNA,1
+                ActivityData: |+
+                  Pilot1,01/01/2015,04:30:00,01/01/2015,06:30:00,Flight,,0,SNA,RSW,SNA
+                  Pilot1,01/01/2015,04:30:00,01/01/2015,06:30:00,Flight,,0,SNA,RSW,SNA
+                Username: 5471E010-DDEE-4C98-FF8F-08DB2245E372
+                Key: 90CBF21C-33D4-4C32-944A-22A0C416DF89
+                Overwrite: "false"
+          
+    ProcessFatigue:
+      description: The following properties must be included in the request body to send a request to the endpoint.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProcessFatigue'
+          examples:
+            Single Row:
+              summary: Single Row in RosterData (with column names)
+              value:
+                RosterData: "Reference,OnDutyDate,OnDutyTime,StartAirport,OffDutyDate,OffDutyTime,EndAirport,HomeBase,TimeReference\r\nPilot1,12/05/2023,19:45,SNA,13/05/2023,04:07,RSW,SNA,2\r\nPilot1,13/05/2022,00:01,RSW,13/05/2022,20:05,SNA,SNA,2"
+                SleepData:
+                  - ScheduleName: Pilot 1
+                    SleepStart: 2023-01-02T19:57:00Z
+                    SleepEnd: 2023-01-02T20:30:00Z
+                DateFormat: dmy
+                PreferredScale: SP
+            Multi Row:
+              summary: Multi Row in RosterData (without column names)
+              value:
+                RosterData: "Pilot1,12/05/2023,19:45,SNA,13/05/2023,04:07,RSW,SNA,2\r\nPilot1,13/05/2022,00:01,RSW,13/05/2022,20:05,SNA,SNA,2"
+                SleepData:
+                  - ScheduleName: Pilot 1
+                    SleepStart: 2023-01-02T19:57:00Z
+                    SleepEnd: 2023-01-02T20:30:00Z
+                DateFormat: dmy
+                PreferredScale: SP
+    ProcessFatigueRisk:
+      description: The following properties must be included in the request body to send a request to the endpoint.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProcessFatigue'
+          examples:
+            Single Row:
+              summary: Single Row in RosterData (with column names)
+              value:
+                RosterData: "Reference,OnDutyDate,OnDutyTime,StartAirport,OffDutyDate,OffDutyTime,EndAirport,HomeBase,TimeReference\r\nPilot1,12/05/2023,19:45,SNA,13/05/2023,04:07,RSW,SNA,2"
+                SleepData:
+                  - ScheduleName: Pilot 1
+                    SleepStart: 2023-01-02T19:57:00Z
+                    SleepEnd: 2023-01-02T20:30:00Z
+                DateFormat: dmy
+                PreferredScale: SP
+            Multi Row:
+              summary: Multi Row in RosterData (without column names)
+              value:
+                RosterData: "Pilot1,12/05/2023,19:45,SNA,13/05/2023,04:07,RSW,SNA,2\r\nPilot1,13/05/2022,00:01,RSW,13/05/2022,20:05,SNA,SNA,2"
+                SleepData:
+                  - ScheduleName: Pilot 1
+                    SleepStart: 2023-01-02T19:57:00Z
+                    SleepEnd: 2023-01-02T20:30:00Z
+                DateFormat: dmy
+                PreferredScale: SP
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: Standard OAUTH2
+      flows: 
+        clientCredentials: 
+          tokenUrl: https://identity-eu.frmsc.com/connect/token
+          refreshUrl: https://identity-eu.frmsc.com/connect/token
+          scopes: 
+            frmsc_safe_upload_api: SAFE Application API
+            frmsc_fast_safe_api: SAFE Swift API Process Fatigue
+            frmsc_fast_safe_risk_api: SAFE Swift API Process Fatigue Risk
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      in: header
+      name: Authorization
+      description: Enter the token generated as the response of the <code>/connect/token</code> endpoint.
+    basicAuth:
+      type: http
+      scheme: basic
+      in: header
+      name: Authorization
+      description: Enter <code><your_client_id></code> in the <b>username</b> field and<code><your_client_secret></code> in the <b>password</b> field.
+

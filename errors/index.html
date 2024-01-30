@@ -1,0 +1,552 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://frmsc.com/errors/" rel="canonical"/>
+<link href="../migrate/" rel="prev"/>
+<link href="../bearer_tutorial/" rel="next"/>
+<link href="../assets/frmsc-logo.png" rel="icon"/>
+<meta content="mkdocs-1.5.3, mkdocs-material-9.5.6" name="generator"/>
+<title>Troubleshooting - FRMSc Developer Portal</title>
+<link href="../assets/stylesheets/main.50c56a3b.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../assets/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="white" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#api-related-faqs">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="FRMSc Developer Portal" class="md-header__button md-logo" data-md-component="logo" href="https://frmsc.com" title="FRMSc Developer Portal">
+<img alt="logo" src="../assets/frmsc-logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            FRMSc Developer Portal
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Troubleshooting
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="" data-md-color-primary="white" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="" data-md-color-primary="custom" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+</form>
+<script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="..">
+          
+  
+  Concepts
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../bearer_tutorial/">
+          
+  
+  Tutorials
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../API/">
+        
+  
+    
+  
+  SAFE API Reference
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="FRMSc Developer Portal" class="md-nav__button md-logo" data-md-component="logo" href="https://frmsc.com" title="FRMSc Developer Portal">
+<img alt="logo" src="../assets/frmsc-logo.png"/>
+</a>
+    FRMSc Developer Portal
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+<span class="md-ellipsis">
+    Concepts
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="..">
+<span class="md-ellipsis">
+    Overview of FRMSc
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    FRMSc SAFE APIs
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_2">
+<span class="md-nav__icon md-icon"></span>
+            FRMSc SAFE APIs
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../api_overview/">
+<span class="md-ellipsis">
+    API Overview
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../safe_app_api/">
+<span class="md-ellipsis">
+    SAFE App API
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../safe_swift_api/">
+<span class="md-ellipsis">
+    SAFE Swift API
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../uiworkflow/">
+<span class="md-ellipsis">
+    SAFE Web UI Workflow
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../results_breakdown/">
+<span class="md-ellipsis">
+    Fatigue and Risk Scales
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../migrate/">
+<span class="md-ellipsis">
+    Migration from v1 to v2
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Troubleshooting
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Troubleshooting
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-related-faqs">
+<span class="md-ellipsis">
+      API related FAQs
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#web-ui-related-faqs">
+<span class="md-ellipsis">
+      Web UI related FAQs
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+<span class="md-ellipsis">
+    Tutorials
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../bearer_tutorial/">
+<span class="md-ellipsis">
+    How to generate a bearer token?
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../upload_api_tutorial/">
+<span class="md-ellipsis">
+    How to use SAFE Upload API?
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../fast_api_tutorial/">
+<span class="md-ellipsis">
+    How to use SAFE Swift API?
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../API/">
+<span class="md-ellipsis">
+    SAFE API Reference
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-related-faqs">
+<span class="md-ellipsis">
+      API related FAQs
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#web-ui-related-faqs">
+<span class="md-ellipsis">
+      Web UI related FAQs
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1>Troubleshooting</h1>
+<h2 id="api-related-faqs">API related FAQs</h2>
+<details class="question">
+<summary>How do you read the API errors?</summary>
+<p>Each error contains 3 pieces of information separated by a | symbol. </p>
+<ul>
+<li>The first part shows you the row within the CSV where the error occurred. </li>
+<li>The second part shows the schedule, which the error is for, and </li>
+<li>The third part shows the error message.</li>
+</ul>
+<p>Example response error</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">  </span><span class="nt">"errors"</span><span class="p">:[</span><span class="s2">"6|Pilot1|The 'Off duty date' (1/2/2015 2:00 PM) cannot be more than 30 hours after the 'On duty date' (1/1/2015 1:53 AM)."</span><span class="p">]</span>
+</span><span id="__span-0-3"><a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<details class="question">
+<summary>Why is my API request not returning any response?</summary>
+<p>Not all SAFE APIs will return a response. Here is a list of APIs that will return a response.</p>
+<ol>
+<li><code>Token</code> API returns bearer token</li>
+<li><code>UploadRoster</code> endpoint returns a roster token if the upload was successful</li>
+<li><code>GetResults</code> endpoint returns error messages and fatigue scores.</li>
+<li><code>ProcessFatigue</code> endpoint returns fatigue scores.</li>
+<li><code>ProcessFatigueRisk</code> endpoint returns fatigue risk scores.</li>
+</ol>
+<p>If these endpoints are not returning any response, more than likely, the payload you have sent to these endpoints is invalid or missing a mandatory field. Recheck the payload to confirm that the payload holds correct data.</p>
+<p>If the problem persists, contact our support team with a raw trace of request and response.</p>
+</details>
+<details class="question">
+<summary><code>UploadRoster</code> endpoint is not showing errors in the file. How do we resolve the errors?</summary>
+<p><code>UploadRoster</code> does not display errors. If you get a roster token from <code>UploadRoster</code> endpoint, your roster data was uploaded correctly.</p>
+<p>But you still need to use the <code>GetResults</code> endpoint to verify if the data is valid. This is how you can check for errors in your uploaded roster data.</p>
+<ol>
+<li>Call the <code>GetResults</code> endpoint by setting the <code>dataKey</code> parameter to <code>status</code>.</li>
+<li>If the response is not <code>completedsuccessfully</code>, call the <code>GetResults</code> endpoint again, but this time set the <code>dataKey</code> parameter to <code>feedback</code>. You should be able to view any errors in the uploaded data.</li>
+</ol>
+</details>
+<details class="question">
+<summary>I keep getting 401 error when sending requests to the API. How to resolve?</summary>
+<p>401 errors happen when the client ID, the client secret, or the bearer token you used is incorrect. Make sure you copy the right client ID and client secret from the web UI to get a bearer token.</p>
+<p>If you still get 401 error after copying the right client secret and client ID from the web UI, reload the page and copy the secret again. Your client ID will stay the same.</p>
+<p>If the issue is not fixed, email our support team with a raw trace of request and response.</p>
+</details>
+<details class="question">
+<summary>What is base64 encoding and how do you encode client ID and client secret using base64 encoding?</summary>
+<p>It is binary to a text encoding scheme that represents binary data in an American Standard Code for Information Interchange (ASCII) string format.</p>
+<p>Most platforms that allow using APIs will automatically convert your string of <code>&lt;ClientID&gt;:&lt;ClientSecret&gt;</code> to base64. If they don't, you can use <a href="https://www.base64encode.org/">online tools</a> to help you with that.</p>
+</details>
+<details class="question">
+<summary>I keep getting a 500 error when sending requests to the API. How to resolve?</summary>
+<p>500 errors occur when our server cannot process the data you sent in the API request. Make sure you include all the required fields in the request body or parameters.</p>
+<p>If the error continues, make sure you use valid values for the fields and parameters. You can find the schema description in our <a href="../API/">API reference documentation</a> to see the required fields and parameters and their valid values. You can also look at the Schema sections of the <a href="../safe_app_api/#schema">SAFE Application API</a> and <a href="../safe_swift_api/#schema">SAFE Swift API</a> to understand the fields and their values.</p>
+<p>If the issue is not resolved, email our support team with a raw trace of request and response.</p>
+</details>
+<details class="question">
+<summary>What is the format for <code>RosterData</code> and <code>ActivityData</code> properties?</summary>
+<p><code>RosterData</code> and <code>ActivityData</code> accept CSV data in JSON format. You can include multiple rows of data in these properties. For more information on the CSV columns, see our <a href="../API/">API reference documentation</a> or the Schema sections of the <a href="../safe_app_api/#schema">SAFE Application API</a> and <a href="../safe_swift_api/#schema">SAFE Swift API</a>.</p>
+<p><span class="twemoji"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 6a6 6 0 0 1 6 6c0 2.22-1.21 4.16-3 5.2V19a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1.8c-1.79-1.04-3-2.98-3-5.2a6 6 0 0 1 6-6m2 15v1a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-1h4m6-10h3v2h-3v-2M1 11h3v2H1v-2M13 1v3h-2V1h2M4.92 3.5l2.13 2.14-1.42 1.41L3.5 4.93 4.92 3.5m12.03 2.13 2.12-2.13 1.43 1.43-2.13 2.12-1.42-1.42Z"></path></svg></span> To create a new row in JSON format, do not press the Enter ⏎ key. Use <code>\r\n</code> (with no spaces around it) to separate the rows for <code>RosterData</code> and <code>ActivityData</code>.</p>
+</details>
+<details class="question">
+<summary>What do the fatigue scores mean? How to read them?</summary>
+<p>Each comma-separated value indicates a fatigue score (based on the scale you chose) at 15-minute intervals. Refer to the <a href="../results_breakdown/">Results Breakdown</a> page to learn more about what each of those scores mean.</p>
+</details>
+<details class="question">
+<summary>I am preparing the payload for Roster and Activity data, but I don't know how to send multi-line data.</summary>
+<p>To create a new row for <code>RosterData</code> and <code>ActivityData</code>, do not use the Enter ⏎ key as it will not work. Use <code>\r\n</code> (with no spaces before or after) to separate the rows of <code>RosterData</code> and <code>ActivityData</code>.</p>
+</details>
+<details class="question">
+<summary>There are multiple authorization methods in API reference. Which should I choose?</summary>
+<p>Our API uses OAuth2.0 for authentication, which is the preferred option for testing our APIs in the API reference documentation. Bearer and basic authentication methods are simplified implementation of OAuth2.0.</p>
+</details>
+<details class="question">
+<summary>The basic authorization method asks for username and password. There is no place to enter Client ID and Client Secret.</summary>
+<p>Basic Authorization methods require a username and a password as per the Open API 3.0 specification that we adhere to.</p>
+<p>For basic authorization, use Client ID as the username and Client Secret as the password.</p>
+</details>
+<details class="question">
+<summary>I tried everything but couldn't resolve the errors. I need to contact support.</summary>
+<p>For support, please email us at <a href="mailto:support@frmsc.com">support@frmsc.com</a>. To speed up the troubleshooting process, please attach the raw trace of request and response to your email. You can find the raw trace of the API request in the console of your API testing tool or your browser window. Here is a sample of raw trace (from Postman console):</p>
+<div class="language-text highlight"><pre><span></span><code>  POST /api/Processor/ProcessFatigue HTTP/1.1
+  Content-Type: application/json
+  Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCP6IjBFNUMxNEU4OEIzRjFFMEFCNDlGNUIzMkU5NzNDMDQ0NkY0MjJDRURSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6IkRsd1U2SXNfSGdxMG4xc3k2WFBBUkc5Q0xPMCJ9.eyJuYmYiOjE3MDYwMDMzNzYsImV4cCI6MTcwNjAwNjk3NiwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS1ldS5mcm1zYy5jb20iLCJhdWQiOiJmcm1zY19mYXN0X3NhZmVfcmlza19hcGkiLCJjbGllbnRfaWQiOiI1NDcxRTAxMC1EREVFLTRDOTgtRkY4Ri0wOERCMjI0NUUzNzIiLCJqdGkiOiIyQUNCMDRFMzFGQkJFN0ZEMDc0RTEwRUEzOTJBNDBENCIsImlhdCI6MTcwNjAwMzM3Niwic2NvcGUiOlsiZnJtc2NfZmFzdF9zYWZlX3Jpc2tfYXBpIl19.gD9a-kjilX-uQ6ashWX6dTSFaGhKFqVujkyb1R8Zq4jNnH4pL5Omq4rBB8wPt3fvps_WBXRuG7ZrDnoth2HaTNMwgEeH9sdZR9xiWlkmhdXiXasUWTR_iAcW_a68bCMiGKPT5STSiIkO-hrPwDFni-fIg5LjAHUvmEZ6n4EtmiAyU1sSG939qFM6p6FK9GIZkAp9fStyqZF7PNK7djOCvv6_NNZXypmM88TL3_naVkE1aH4BPecjUhwECTzmxmkt8lcCx658IHBPAeXS3a6rlo3cFKosWsb08cVgYutn4I764-8CMTTNp1umWeYWVWl9YbxV_ynNTI7VNlOJLCZwaw
+  User-Agent: PostmanRuntime/7.36.1
+  Accept: */*
+  Cache-Control: no-cache
+  Postman-Token: 3525292c-2e40-47b3-9ea6-f2ad4ec930e1
+  Host: api-eu.frmsc.com
+  Accept-Encoding: gzip, deflate, br
+  Connection: keep-alive
+  Cookie: ARRAffinity=c349e3b3a841e0f145827e7b45147850448801356063dc14e966fbfa5b7979c5; ARRAffinitySameSite=c349e3b3a841e0f145827e7b45147850448801356063dc14e966fbfa5b7979c5
+
+  {
+  "RosterData": "Pilot1,12/05/2023,19:45,SNA,13/05/2023,04:07,RSW,SNA,2",
+  "SleepData": [
+  {
+  "ScheduleName": "Pilot 1",
+  "SleepStart": "2023-01-02T19:57:00Z",
+  "SleepEnd": "2023-01-02T20:30:00Z"
+  }
+  ],
+  "DateFormat": "dmy",
+  "PreferredScale": "SP"
+  }
+
+  HTTP/1.1 403 Forbidden
+  Content-Length: 0
+  Date: Tue, 23 Jan 2024 09:51:07 GMT
+  Server: Microsoft-IIS/10.0
+  Request-Context: appId=cid-v1:b5aa80b1-72af-42a2-bc7b-e827ba340897
+  X-Powered-By: ASP.NET
+</code></pre></div>
+</details>
+<h2 id="web-ui-related-faqs">Web UI related FAQs</h2>
+<details class="question">
+<summary>I don't see a button to add activity through UI.</summary>
+<p>There are no main menu buttons to add activity to a duty. Instead, right-click on the duty to which you want to add the activity and choose <strong>Activity</strong> from the context menu. See our UI workflow for <a href="../uiworkflow/">step-by-step instructions to add activity</a>.</p>
+</details>
+<details class="question">
+<summary>When uploading duty and activity, I get errors, but I don't see how to resolve them.</summary>
+<p>When you bulk upload the schedule, you won't be able to resolve the errors from UI. You must return to the CSV file and resolve the error shown in the UI. </p>
+<p>Then, delete the roster with faulty data and re-upload the schedule.</p>
+</details>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.tracking", "content.code.copy", "content.code.select"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../assets/javascripts/bundle.e1c3ead8.min.js"></script>
+<script>document$.subscribe(() => {
+            window.update_swagger_ui_iframe_height = function (id) {
+                var iFrameID = document.getElementById(id);
+                if (iFrameID) {
+                    full_height = (iFrameID.contentWindow.document.body.scrollHeight + 80) + "px";
+                    iFrameID.height = full_height;
+                    iFrameID.style.height = full_height;
+                }
+            }
+        
+            let iframe_id_list = []
+            var iframes = document.getElementsByClassName("swagger-ui-iframe");
+            for (var i = 0; i < iframes.length; i++) { 
+                iframe_id_list.push(iframes[i].getAttribute("id"))
+            }
+        
+            let ticking = true;
+            
+            document.addEventListener('scroll', function(e) {
+                if (!ticking) {
+                    window.requestAnimationFrame(()=> {
+                        let half_vh = window.innerHeight/2;
+                        for(var i = 0; i < iframe_id_list.length; i++) {
+                            let element = document.getElementById(iframe_id_list[i])
+                            if(element==null){
+                                return
+                            }
+                            let diff = element.getBoundingClientRect().top
+                            if(element.contentWindow.update_top_val){
+                                element.contentWindow.update_top_val(half_vh - diff)
+                            }
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        
+            const dark_scheme_name = "slate"
+            
+            window.scheme = document.body.getAttribute("data-md-color-scheme")
+            const options = {
+                attributeFilter: ['data-md-color-scheme'],
+            };
+            function color_scheme_callback(mutations) {
+                for (let mutation of mutations) {
+                    if (mutation.attributeName === "data-md-color-scheme") {
+                        scheme = document.body.getAttribute("data-md-color-scheme")
+                        var iframe_list = document.getElementsByClassName("swagger-ui-iframe")
+                        for(var i = 0; i < iframe_list.length; i++) {
+                            var ele = iframe_list.item(i);
+                            if (ele) {
+                                if (scheme === dark_scheme_name) {
+                                    ele.contentWindow.enable_dark_mode();
+                                } else {
+                                    ele.contentWindow.disable_dark_mode();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            observer = new MutationObserver(color_scheme_callback);
+            observer.observe(document.body, options);
+            })</script></body>
+</html>

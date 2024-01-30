@@ -1,0 +1,1013 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://frmsc.com/fast_api_tutorial/" rel="canonical"/>
+<link href="../upload_api_tutorial/" rel="prev"/>
+<link href="../API/" rel="next"/>
+<link href="../assets/frmsc-logo.png" rel="icon"/>
+<meta content="mkdocs-1.5.3, mkdocs-material-9.5.6" name="generator"/>
+<title>How to use SAFE Swift API? - FRMSc Developer Portal</title>
+<link href="../assets/stylesheets/main.50c56a3b.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../assets/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="white" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#when-to-use-safe-swift-api">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="FRMSc Developer Portal" class="md-header__button md-logo" data-md-component="logo" href="https://frmsc.com" title="FRMSc Developer Portal">
+<img alt="logo" src="../assets/frmsc-logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            FRMSc Developer Portal
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              How to use SAFE Swift API?
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="" data-md-color-primary="white" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="" data-md-color-primary="custom" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+</form>
+<script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="..">
+          
+  
+  Concepts
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../bearer_tutorial/">
+          
+  
+  Tutorials
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../API/">
+        
+  
+    
+  
+  SAFE API Reference
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="FRMSc Developer Portal" class="md-nav__button md-logo" data-md-component="logo" href="https://frmsc.com" title="FRMSc Developer Portal">
+<img alt="logo" src="../assets/frmsc-logo.png"/>
+</a>
+    FRMSc Developer Portal
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+<span class="md-ellipsis">
+    Concepts
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="..">
+<span class="md-ellipsis">
+    Overview of FRMSc
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+<span class="md-ellipsis">
+    FRMSc SAFE APIs
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_2">
+<span class="md-nav__icon md-icon"></span>
+            FRMSc SAFE APIs
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../api_overview/">
+<span class="md-ellipsis">
+    API Overview
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../safe_app_api/">
+<span class="md-ellipsis">
+    SAFE App API
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../safe_swift_api/">
+<span class="md-ellipsis">
+    SAFE Swift API
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../uiworkflow/">
+<span class="md-ellipsis">
+    SAFE Web UI Workflow
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../results_breakdown/">
+<span class="md-ellipsis">
+    Fatigue and Risk Scales
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../migrate/">
+<span class="md-ellipsis">
+    Migration from v1 to v2
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../errors/">
+<span class="md-ellipsis">
+    Troubleshooting
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+<span class="md-ellipsis">
+    Tutorials
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../bearer_tutorial/">
+<span class="md-ellipsis">
+    How to generate a bearer token?
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../upload_api_tutorial/">
+<span class="md-ellipsis">
+    How to use SAFE Upload API?
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    How to use SAFE Swift API?
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    How to use SAFE Swift API?
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#when-to-use-safe-swift-api">
+<span class="md-ellipsis">
+      When to use SAFE Swift API?
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-to-work-with-the-api">
+<span class="md-ellipsis">
+      How to work with the API?
+    </span>
+</a>
+<nav aria-label="How to work with the API?" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#get-fatigue-score">
+<span class="md-ellipsis">
+      Get Fatigue Score
+    </span>
+</a>
+<nav aria-label="Get Fatigue Score" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-1-generate-a-token">
+<span class="md-ellipsis">
+      Step 1: Generate a token
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-2-set-the-variable-values">
+<span class="md-ellipsis">
+      Step 2: Set the variable values
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-3-initiate-request">
+<span class="md-ellipsis">
+      Step 3: Initiate request
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-4-prepare-request-body">
+<span class="md-ellipsis">
+      Step 4: Prepare request body
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-5-make-the-request">
+<span class="md-ellipsis">
+      Step 5: Make the request
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-6-retry-with-different-prefferedscale">
+<span class="md-ellipsis">
+      Step 6: Retry with different PrefferedScale
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#get-fatigue-risk-score">
+<span class="md-ellipsis">
+      Get Fatigue Risk Score
+    </span>
+</a>
+<nav aria-label="Get Fatigue Risk Score" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-1-generate-a-token_1">
+<span class="md-ellipsis">
+      Step 1: Generate a token
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-2-set-the-variable-values_1">
+<span class="md-ellipsis">
+      Step 2: Set the variable values
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-3-initiate-request_1">
+<span class="md-ellipsis">
+      Step 3: Initiate request
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-4-prepare-request-body_1">
+<span class="md-ellipsis">
+      Step 4: Prepare request body
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-5-make-the-request_1">
+<span class="md-ellipsis">
+      Step 5: Make the request
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-6-retry-with-different-prefferedscale_1">
+<span class="md-ellipsis">
+      Step 6: Retry with different PrefferedScale
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#complete-code">
+<span class="md-ellipsis">
+      Complete Code
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../API/">
+<span class="md-ellipsis">
+    SAFE API Reference
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#when-to-use-safe-swift-api">
+<span class="md-ellipsis">
+      When to use SAFE Swift API?
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-to-work-with-the-api">
+<span class="md-ellipsis">
+      How to work with the API?
+    </span>
+</a>
+<nav aria-label="How to work with the API?" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#get-fatigue-score">
+<span class="md-ellipsis">
+      Get Fatigue Score
+    </span>
+</a>
+<nav aria-label="Get Fatigue Score" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-1-generate-a-token">
+<span class="md-ellipsis">
+      Step 1: Generate a token
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-2-set-the-variable-values">
+<span class="md-ellipsis">
+      Step 2: Set the variable values
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-3-initiate-request">
+<span class="md-ellipsis">
+      Step 3: Initiate request
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-4-prepare-request-body">
+<span class="md-ellipsis">
+      Step 4: Prepare request body
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-5-make-the-request">
+<span class="md-ellipsis">
+      Step 5: Make the request
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-6-retry-with-different-prefferedscale">
+<span class="md-ellipsis">
+      Step 6: Retry with different PrefferedScale
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#get-fatigue-risk-score">
+<span class="md-ellipsis">
+      Get Fatigue Risk Score
+    </span>
+</a>
+<nav aria-label="Get Fatigue Risk Score" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-1-generate-a-token_1">
+<span class="md-ellipsis">
+      Step 1: Generate a token
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-2-set-the-variable-values_1">
+<span class="md-ellipsis">
+      Step 2: Set the variable values
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-3-initiate-request_1">
+<span class="md-ellipsis">
+      Step 3: Initiate request
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-4-prepare-request-body_1">
+<span class="md-ellipsis">
+      Step 4: Prepare request body
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-5-make-the-request_1">
+<span class="md-ellipsis">
+      Step 5: Make the request
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-6-retry-with-different-prefferedscale_1">
+<span class="md-ellipsis">
+      Step 6: Retry with different PrefferedScale
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#complete-code">
+<span class="md-ellipsis">
+      Complete Code
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1>How to use SAFE Swift API?</h1>
+<div class="admonition info">
+<p class="admonition-title"><a href="https://frmsc.blob.core.windows.net/examples/Safe%20API%20Demo%20Client%20-%20Release.zip">Download the C#.NET examples for SAFE APIs with helper library</a></p>
+</div>
+<h2 id="when-to-use-safe-swift-api">When to use SAFE Swift API?</h2>
+<p>As the name suggests, the SAFE Swift API produces the result quickly. Unlike the SAFE Application API, it doesn't keep a copy of your uploaded roster data in the SAFE web app. So, you won't be able to view the uploaded roster in the future. This API, however, delivers fatigue score and fatigue risk score as response from the same the endpoints you use to send the roster data. Use this API to quickly generate fatigue score and fatigue risk score from the roster data.</p>
+<h2 id="how-to-work-with-the-api">How to work with the API?</h2>
+<p>This code snippet is written in C# and it is used to upload roster data to the FRMSC SAFE Swift API and get results from the API. The program uses the following libraries: </p>
+<ul>
+<li><code>IdentityModel.Client</code></li>
+<li><code>Safe_API_Demo_Client.Models</code></li>
+<li><code>System</code> </li>
+<li><code>System.Collections.Generic</code></li>
+<li><code>System.Linq</code></li>
+<li><code>System.Net.Http.Json</code></li>
+<li><code>System.Text</code></li>
+<li><code>System..Threading.Tasks</code></li>
+</ul>
+<p>Here are the steps to follow. </p>
+<h3 id="get-fatigue-score">Get Fatigue Score</h3>
+<p>Follow the instructions below to get fatigue score. This code sends <code>HTTP POST</code> request to a web API endpoint.</p>
+<h4 id="step-1-generate-a-token"><b>Step 1</b>: Generate a token</h4>
+<p>Generate a Bearer token to use with this endpoint. Follow the instructions given in <a href="../bearer_tutorial/">How to generate a Bearer token?</a> tutorial to generate a bearer token.</p>
+<h4 id="step-2-set-the-variable-values"><b>Step 2</b>: Set the variable values</h4>
+<p>Set the values of <code>apiKey</code>, <code>accessToken</code>, <code>rosterCSV</code>, and <code>clientId</code> variables. </p>
+<div class="language-C# highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">apiUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"https://api-eu.frmsc.com"</span><span class="p">;</span>
+</span><span id="__span-0-2"><a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">accessToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"[Your_Accesstoken]"</span><span class="p">;</span>
+</span><span id="__span-0-3"><a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="kt">var</span><span class="w"> </span><span class="n">rosterCsv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">File</span><span class="p">.</span><span class="n">ReadAllText</span><span class="p">(</span><span class="s">"SampleRosters\\ExampleRosterUpload.csv"</span><span class="p">);</span>
+</span><span id="__span-0-4"><a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="kt">var</span><span class="w"> </span><span class="n">clientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"[Your_ClientId]"</span><span class="p">;</span>
+</span></code></pre></div>
+<p>You can get the <code>accessToken</code> from the previous step.  </p>
+<p>The <code>rosterCSV</code> variable is set to read the roster data from a CSV file. Set the parameter value of the <code>File.ReadAllText()</code> function to the location of the CSV file with the roster data.</p>
+<h4 id="step-3-initiate-request"><b>Step 3</b>: Initiate request</h4>
+<p>Create an HTTP client and set the base address to the API URL. We recommend that you also set the HTTP client to timeout after 1000 seconds. Then, create an HTTP request message with the HTTP method set to POST and the endpoint set to <code>/api/Processor/ProcessFatigue</code>. The request message should also include the <code>authorization</code> header with the access token.</p>
+<div class="language-C# highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">HttpClient</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HttpClient</span><span class="p">();</span>
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">client</span><span class="p">.</span><span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromSeconds</span><span class="p">(</span><span class="m">1000</span><span class="p">);</span>
+</span><span id="__span-1-3"><a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="n">client</span><span class="p">.</span><span class="n">BaseAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Uri</span><span class="p">(</span><span class="n">apiUrl</span><span class="p">);</span>
+</span><span id="__span-1-4"><a href="#__codelineno-1-4" id="__codelineno-1-4" name="__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a href="#__codelineno-1-5" id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="kt">var</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="p">(</span><span class="n">HttpMethod</span><span class="p">.</span><span class="n">Post</span><span class="p">,</span><span class="w"> </span><span class="s">"/api/Processor/ProcessFatigue"</span><span class="p">);</span>
+</span><span id="__span-1-6"><a href="#__codelineno-1-6" id="__codelineno-1-6" name="__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a href="#__codelineno-1-7" id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="n">request</span><span class="p">.</span><span class="n">Version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Version</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">);</span>
+</span><span id="__span-1-8"><a href="#__codelineno-1-8" id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="n">request</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"authorization"</span><span class="p">,</span><span class="w"> </span><span class="s">$"Bearer {accessToken}"</span><span class="p">);</span>
+</span></code></pre></div>
+<h4 id="step-4-prepare-request-body"><b>Step 4</b>: Prepare request body</h4>
+<p>Create an instance of the <code>FatigueProcessorPayload</code> class and sets its properties. </p>
+<div class="language-C# highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span>
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="p">{</span><span class="w">    </span>
+</span><span id="__span-2-3"><a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span><span class="n">RosterData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rosterCsv</span><span class="p">,</span>
+</span><span id="__span-2-4"><a href="#__codelineno-2-4" id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">    </span><span class="n">SleepData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">SleepData</span><span class="o">&gt;</span><span class="p">(),</span>
+</span><span id="__span-2-5"><a href="#__codelineno-2-5" id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">    </span><span class="n">PreferredScale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"SP"</span><span class="p">,</span>
+</span><span id="__span-2-6"><a href="#__codelineno-2-6" id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">    </span><span class="n">DateFormat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"dmy"</span><span class="p">,</span>
+</span><span id="__span-2-7"><a href="#__codelineno-2-7" id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">    </span><span class="n">GenerateSleeps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">,</span>
+</span><span id="__span-2-8"><a href="#__codelineno-2-8" id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">    </span><span class="n">SleepSettings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">SleepSetting</span><span class="o">&gt;</span><span class="p">()</span>
+</span><span id="__span-2-9"><a href="#__codelineno-2-9" id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="p">};</span>
+</span></code></pre></div>
+<p>The <code>FatigueProcessorPayload</code> class has six properties.</p>
+<ul>
+<li>
+<p>Set the RosterData property to refer to <code>rosterCsv</code>. </p>
+</li>
+<li>
+<p>The <code>PreferredScale</code> property has been set to <code>SP</code> in the example. This value can be changed to indicate a different scale, which you want the result to be in. See <a href="#step-5-retry-with-different-prefferedscale">Step 5: Retry with different PrefferedScale</a> for different values you can assign to  <code>PreferredScale</code> property.</p>
+</li>
+<li>
+<p>The <code>SleepData</code> property takes an array of the following properties:</p>
+<ul>
+<li><code>ScheduleName</code>, which indicates the schedule name</li>
+<li><code>SleepStart</code>, which indicates the date and time (Zulu format) when the sleep started</li>
+<li><code>SleepEnd</code>, which indicates the date and time (Zulu format) when the sleep ended</li>
+</ul>
+</li>
+<li>
+<p>Leave the <code>SleepData</code> and <code>SleepSettings</code> properties empty by assiging empty lists to them. </p>
+</li>
+<li>
+<p>The <code>DateFormat</code> property is set to <code>dmy</code>, which indicates DD/MM/YYYY date format has been used in roster data. You could change this value to <code>mdy</code>to indicate MM/DD/YYYY date format.</p>
+</li>
+<li>
+<p>The <code>GenerateSleeps</code> property has been set to <code>true</code> to indicate that SAFE must predict sleeps automatically. You can provide <code>SleepData</code> and still set the <code>GenerateSleeps</code> property to true to indicate SAFE must disregard the provided <code>SleepData</code> and predict sleeps automatically.</p>
+</li>
+</ul>
+<h4 id="step-5-make-the-request"><b>Step 5</b>: Make the request</h4>
+<p>Create a JSON object using the request body and send the request message to the API and wait for it to return the result.</p>
+<div class="language-C# highlight"><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="n">request</span><span class="p">.</span><span class="n">Content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonContent</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">payload</span><span class="p">);</span>
+</span><span id="__span-3-2"><a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">SendAsync</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+</span><span id="__span-3-3"><a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">ReadAsStringAsync</span><span class="p">();</span>
+</span><span id="__span-3-4"><a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Result: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+</span><span id="__span-3-5"><a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+</span></code></pre></div>
+<h4 id="step-6-retry-with-different-prefferedscale"><b>Step 6</b>: Retry with different <code>PrefferedScale</code></h4>
+<p>There are two workflows for this step depending on the response you receive from the previous step.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Response is an error</label><label for="__tabbed_1_2">Response is the result</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>If the response from the previous step is an error, read the response to locate the cause of the error.</p>
+<div class="admonition info">
+<p class="admonition-title">How to read the error?</p>
+<p>Each error contains 3 pieces of information separated by a | symbol. </p>
+<ul>
+<li>The first part shows you the row within the csv where the error occured. </li>
+<li>The second part shows the schedule, which the error is for, and </li>
+<li>The third part shows the error message.</li>
+</ul>
+<p>Example response error</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="p">{</span>
+</span><span id="__span-4-2"><a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">  </span><span class="nt">"errors"</span><span class="p">:[</span><span class="s2">"6|Pilot1|The 'Off duty date' (1/2/2015 2:00 PM) cannot be more than 30 hours after the 'On duty date' (1/1/2015 1:53 AM)."</span><span class="p">]</span>
+</span><span id="__span-4-3"><a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Resolve any error in the roster data file and retry sending the request. </p>
+</div>
+<div class="tabbed-block">
+<p>If you receive the result for the scale you had set in <code>PreferredScale</code> property, you can send the request again within a different value assigned to the <code>PreferredScale</code> property. The following values are supported for the <code>PreferredScale</code> property. Send <b>only one value</b> at a time.</p>
+<ul>
+<li><code>SP</code> for Samn-Perelli scale</li>
+<li><code>KSS</code> for Karolinska Sleepiness Scale</li>
+<li><code>KP</code> for Karolinska Probability scale</li>
+<li><code>VS</code> for Vigilance Degradation scale</li>
+<li><code>CRD</code> for Complex Reaction Degradation scale</li>
+<li><code>PMR</code> for Percentage Missed Responses scale</li>
+</ul>
+</div>
+</div>
+</input></input></div>
+<h3 id="get-fatigue-risk-score">Get Fatigue Risk Score</h3>
+<p>Follow the instructions below to get fatigue score together with risk score. This code sends <code>HTTP POST</code> request to a web API endpoint.</p>
+<h4 id="step-1-generate-a-token_1"><b>Step 1</b>: Generate a token</h4>
+<p>Generate a Bearer token to use with this endpoint. Follow the instructions given in <a href="../bearer_tutorial/">How to generate a Bearer token?</a> tutorial to generate a bearer token.</p>
+<h4 id="step-2-set-the-variable-values_1"><b>Step 2</b>: Set the variable values</h4>
+<p>Set the values of <code>apiKey</code>, <code>accessToken</code>, <code>rosterCSV</code>, and <code>clientId</code> variables. </p>
+<div class="language-C# highlight"><pre><span></span><code><span id="__span-5-1"><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">apiUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"https://api-eu.frmsc.com"</span><span class="p">;</span>
+</span><span id="__span-5-2"><a href="#__codelineno-5-2" id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">accessToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"[Your_Accesstoken]"</span><span class="p">;</span>
+</span><span id="__span-5-3"><a href="#__codelineno-5-3" id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="kt">var</span><span class="w"> </span><span class="n">rosterCsv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">File</span><span class="p">.</span><span class="n">ReadAllText</span><span class="p">(</span><span class="s">"SampleRosters\\ExampleRosterUpload.csv"</span><span class="p">);</span>
+</span><span id="__span-5-4"><a href="#__codelineno-5-4" id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="kt">var</span><span class="w"> </span><span class="n">clientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"[Your_ClientId]"</span><span class="p">;</span>
+</span></code></pre></div>
+<p>You can get the <code>accessToken</code> from the previous step.  </p>
+<p>The <code>rosterCSV</code> variable is set to read the roster data from a CSV file. Set the parameter value of the <code>File.ReadAllText()</code> function to the location of the CSV file with the roster data.</p>
+<h4 id="step-3-initiate-request_1"><b>Step 3</b>: Initiate request</h4>
+<p>Create an HTTP client and set the base address to the API URL. We recommend that you also set the HTTP client to timeout after 1000 seconds. Then, create an HTTP request message with the HTTP method set to POST and the endpoint set to <code>/api/Processor/ProcessFatigueRisk</code>. The request message should also include the <code>authorization</code> header with the access token.</p>
+<div class="language-C# highlight"><pre><span></span><code><span id="__span-6-1"><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="n">HttpClient</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HttpClient</span><span class="p">();</span>
+</span><span id="__span-6-2"><a href="#__codelineno-6-2" id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="n">client</span><span class="p">.</span><span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromSeconds</span><span class="p">(</span><span class="m">1000</span><span class="p">);</span>
+</span><span id="__span-6-3"><a href="#__codelineno-6-3" id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="n">client</span><span class="p">.</span><span class="n">BaseAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Uri</span><span class="p">(</span><span class="n">apiUrl</span><span class="p">);</span>
+</span><span id="__span-6-4"><a href="#__codelineno-6-4" id="__codelineno-6-4" name="__codelineno-6-4"></a>
+</span><span id="__span-6-5"><a href="#__codelineno-6-5" id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="kt">var</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="p">(</span><span class="n">HttpMethod</span><span class="p">.</span><span class="n">Post</span><span class="p">,</span><span class="w"> </span><span class="s">"/api/Processor/ProcessFatigueRisk"</span><span class="p">);</span>
+</span><span id="__span-6-6"><a href="#__codelineno-6-6" id="__codelineno-6-6" name="__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a href="#__codelineno-6-7" id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="n">request</span><span class="p">.</span><span class="n">Version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Version</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">);</span>
+</span><span id="__span-6-8"><a href="#__codelineno-6-8" id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="n">request</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"authorization"</span><span class="p">,</span><span class="w"> </span><span class="s">$"Bearer {accessToken}"</span><span class="p">);</span>
+</span></code></pre></div>
+<h4 id="step-4-prepare-request-body_1"><b>Step 4</b>: Prepare request body</h4>
+<p>Create an instance of the <code>FatigueProcessorPayload</code> class and sets its properties. </p>
+<div class="language-C# highlight"><pre><span></span><code><span id="__span-7-1"><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span>
+</span><span id="__span-7-2"><a href="#__codelineno-7-2" id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="p">{</span><span class="w">    </span>
+</span><span id="__span-7-3"><a href="#__codelineno-7-3" id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="w">    </span><span class="n">RosterData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rosterCsv</span><span class="p">,</span>
+</span><span id="__span-7-4"><a href="#__codelineno-7-4" id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">    </span><span class="n">SleepData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">SleepData</span><span class="o">&gt;</span><span class="p">(),</span>
+</span><span id="__span-7-5"><a href="#__codelineno-7-5" id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w">    </span><span class="n">PreferredScale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"SP"</span><span class="p">,</span>
+</span><span id="__span-7-6"><a href="#__codelineno-7-6" id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">    </span><span class="n">DateFormat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"dmy"</span><span class="p">,</span>
+</span><span id="__span-7-7"><a href="#__codelineno-7-7" id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="w">    </span><span class="n">GenerateSleeps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">,</span>
+</span><span id="__span-7-8"><a href="#__codelineno-7-8" id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="w">    </span><span class="n">SleepSettings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">SleepSetting</span><span class="o">&gt;</span><span class="p">()</span>
+</span><span id="__span-7-9"><a href="#__codelineno-7-9" id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="p">};</span>
+</span></code></pre></div>
+<p>The <code>FatigueProcessorPayload</code> class has six properties.</p>
+<ul>
+<li>
+<p>Set the RosterData property to refer to <code>rosterCsv</code>. </p>
+</li>
+<li>
+<p>The <code>PreferredScale</code> property has been set to <code>SP</code> in the example. This value can be changed to indicate a different scale, which you want the result to be in. See <a href="#step-5-retry-with-different-prefferedscale">Step 5: Retry with different PrefferedScale</a> for different values you can assign to  <code>PreferredScale</code> property.</p>
+</li>
+<li>
+<p>The <code>SleepData</code> property takes an array of the following properties:</p>
+<ul>
+<li><code>ScheduleName</code>, which indicates the schedule name</li>
+<li><code>SleepStart</code>, which indicates the date and time (Zulu format) when the sleep started</li>
+<li><code>SleepEnd</code>, which indicates the date and time (Zulu format) when the sleep ended</li>
+</ul>
+</li>
+<li>
+<p>Leave the <code>SleepData</code> and <code>SleepSettings</code> properties empty by assiging empty lists to them. </p>
+</li>
+<li>
+<p>The <code>DateFormat</code> property is set to <code>dmy</code>, which indicates DD/MM/YYYY date format has been used in roster data. You could change this value to <code>mdy</code>to indicate MM/DD/YYYY date format.</p>
+</li>
+<li>
+<p>The <code>GenerateSleeps</code> property has been set to <code>true</code> to indicate that SAFE must predict sleeps automatically. You can provide <code>SleepData</code> and still set the <code>GenerateSleeps</code> property to true to indicate SAFE must disregard the provided <code>SleepData</code> and predict sleeps automatically.</p>
+</li>
+</ul>
+<h4 id="step-5-make-the-request_1"><b>Step 5</b>: Make the request</h4>
+<p>Create a JSON object using the request body and send the request message to the API and wait for it to return the result.</p>
+<div class="language-C# highlight"><pre><span></span><code><span id="__span-8-1"><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="n">request</span><span class="p">.</span><span class="n">Content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonContent</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">payload</span><span class="p">);</span>
+</span><span id="__span-8-2"><a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">SendAsync</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+</span><span id="__span-8-3"><a href="#__codelineno-8-3" id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">ReadAsStringAsync</span><span class="p">();</span>
+</span><span id="__span-8-4"><a href="#__codelineno-8-4" id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Result: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+</span><span id="__span-8-5"><a href="#__codelineno-8-5" id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+</span></code></pre></div>
+<h4 id="step-6-retry-with-different-prefferedscale_1"><b>Step 6</b>: Retry with different <code>PrefferedScale</code></h4>
+<p>There are two workflows for this step depending on the response you receive from the previous step.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Response is blank</label><label for="__tabbed_2_2">Response is the result</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>If the response from the previous step is blank, use the <a href="#get-fatigue-score">Fatigue endpoint</a> to find the error.  <br/>
+Resolve any error in the roster data file. Then, return to <a href="#step-1-generate-a-token_1">Get Fatigue Risk Score</a>. </p>
+</div>
+<div class="tabbed-block">
+<p>If you receive the result for the scale you had set in <code>PreferredScale</code> property, you can send the request again within a different value assigned to the <code>PreferredScale</code> property. The following values are supported for the <code>PreferredScale</code> property. Send <b>only one value</b> at a time.</p>
+<ul>
+<li><code>SP</code> for Samn-Perelli scale</li>
+<li><code>KSS</code> for Karolinska Sleepiness Scale</li>
+<li><code>KP</code> for Karolinska Probability scale</li>
+<li><code>VS</code> for Vigilance Degradation scale</li>
+<li><code>CRD</code> for Complex Reaction Degradation scale</li>
+<li><code>PMR</code> for Percentage Missed Responses scale</li>
+</ul>
+</div>
+</div>
+</input></input></div>
+<h3 id="complete-code">Complete Code</h3>
+<div class="language-c# highlight"><pre><span></span><code><span id="__span-9-1"><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="k">using</span><span class="w"> </span><span class="nn">IdentityModel.Client</span><span class="p">;</span>
+</span><span id="__span-9-2"><a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="k">using</span><span class="w"> </span><span class="nn">Safe_API_Demo_Client.Models</span><span class="p">;</span>
+</span><span id="__span-9-3"><a href="#__codelineno-9-3" id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="k">using</span><span class="w"> </span><span class="nn">System</span><span class="p">;</span>
+</span><span id="__span-9-4"><a href="#__codelineno-9-4" id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="k">using</span><span class="w"> </span><span class="nn">System.Collections.Generic</span><span class="p">;</span>
+</span><span id="__span-9-5"><a href="#__codelineno-9-5" id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="k">using</span><span class="w"> </span><span class="nn">System.Linq</span><span class="p">;</span>
+</span><span id="__span-9-6"><a href="#__codelineno-9-6" id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="k">using</span><span class="w"> </span><span class="nn">System.Net.Http.Json</span><span class="p">;</span>
+</span><span id="__span-9-7"><a href="#__codelineno-9-7" id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="k">using</span><span class="w"> </span><span class="nn">System.Text</span><span class="p">;</span>
+</span><span id="__span-9-8"><a href="#__codelineno-9-8" id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="k">using</span><span class="w"> </span><span class="nn">System.Threading.Tasks</span><span class="p">;</span>
+</span><span id="__span-9-9"><a href="#__codelineno-9-9" id="__codelineno-9-9" name="__codelineno-9-9"></a>
+</span><span id="__span-9-10"><a href="#__codelineno-9-10" id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="k">namespace</span><span class="w"> </span><span class="nn">Safe_API_Demo_Client</span>
+</span><span id="__span-9-11"><a href="#__codelineno-9-11" id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="p">{</span>
+</span><span id="__span-9-12"><a href="#__codelineno-9-12" id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">FastApi</span>
+</span><span id="__span-9-13"><a href="#__codelineno-9-13" id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-9-14"><a href="#__codelineno-9-14" id="__codelineno-9-14" name="__codelineno-9-14"></a><span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Run</span><span class="p">()</span>
+</span><span id="__span-9-15"><a href="#__codelineno-9-15" id="__codelineno-9-15" name="__codelineno-9-15"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-9-16"><a href="#__codelineno-9-16" id="__codelineno-9-16" name="__codelineno-9-16"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">identityUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"https://identity-eu.frmsc.com"</span><span class="p">;</span><span class="w">            </span>
+</span><span id="__span-9-17"><a href="#__codelineno-9-17" id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">apiUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@"https://api-eu.frmsc.com"</span><span class="p">;</span>
+</span><span id="__span-9-18"><a href="#__codelineno-9-18" id="__codelineno-9-18" name="__codelineno-9-18"></a>
+</span><span id="__span-9-19"><a href="#__codelineno-9-19" id="__codelineno-9-19" name="__codelineno-9-19"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">clientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"[Your_ClientId]"</span><span class="p">;</span>
+</span><span id="__span-9-20"><a href="#__codelineno-9-20" id="__codelineno-9-20" name="__codelineno-9-20"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">clientSecret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"[your_ClientSecret]"</span><span class="p">;</span>
+</span><span id="__span-9-21"><a href="#__codelineno-9-21" id="__codelineno-9-21" name="__codelineno-9-21"></a>
+</span><span id="__span-9-22"><a href="#__codelineno-9-22" id="__codelineno-9-22" name="__codelineno-9-22"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">rosterCsv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">File</span><span class="p">.</span><span class="n">ReadAllText</span><span class="p">(</span><span class="s">"SampleRosters\\ExampleRosterUpload.csv"</span><span class="p">);</span>
+</span><span id="__span-9-23"><a href="#__codelineno-9-23" id="__codelineno-9-23" name="__codelineno-9-23"></a>
+</span><span id="__span-9-24"><a href="#__codelineno-9-24" id="__codelineno-9-24" name="__codelineno-9-24"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">accessToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">Authenticate</span><span class="p">(</span><span class="n">identityUrl</span><span class="p">,</span><span class="w"> </span><span class="n">clientId</span><span class="p">,</span><span class="w"> </span><span class="n">clientSecret</span><span class="p">,</span><span class="w"> </span><span class="s">"frmsc_fast_safe_api"</span><span class="p">);</span>
+</span><span id="__span-9-25"><a href="#__codelineno-9-25" id="__codelineno-9-25" name="__codelineno-9-25"></a><span class="w">            </span><span class="k">await</span><span class="w"> </span><span class="nf">ProcessFatigue</span><span class="p">(</span><span class="n">apiUrl</span><span class="p">,</span><span class="w"> </span><span class="n">accessToken</span><span class="p">,</span><span class="w"> </span><span class="n">rosterCsv</span><span class="p">);</span>
+</span><span id="__span-9-26"><a href="#__codelineno-9-26" id="__codelineno-9-26" name="__codelineno-9-26"></a>
+</span><span id="__span-9-27"><a href="#__codelineno-9-27" id="__codelineno-9-27" name="__codelineno-9-27"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">accessToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">Authenticate</span><span class="p">(</span><span class="n">identityUrl</span><span class="p">,</span><span class="w"> </span><span class="n">clientId</span><span class="p">,</span><span class="w"> </span><span class="n">clientSecret</span><span class="p">,</span><span class="w"> </span><span class="s">"frmsc_fast_safe_risk_api"</span><span class="p">);</span>
+</span><span id="__span-9-28"><a href="#__codelineno-9-28" id="__codelineno-9-28" name="__codelineno-9-28"></a><span class="w">            </span><span class="k">await</span><span class="w"> </span><span class="nf">ProcessFatigueRisk</span><span class="p">(</span><span class="n">apiUrl</span><span class="p">,</span><span class="w"> </span><span class="n">accessToken</span><span class="p">,</span><span class="w"> </span><span class="n">rosterCsv</span><span class="p">);</span>
+</span><span id="__span-9-29"><a href="#__codelineno-9-29" id="__codelineno-9-29" name="__codelineno-9-29"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-9-30"><a href="#__codelineno-9-30" id="__codelineno-9-30" name="__codelineno-9-30"></a>
+</span><span id="__span-9-31"><a href="#__codelineno-9-31" id="__codelineno-9-31" name="__codelineno-9-31"></a><span class="w">        </span><span class="k">static</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="n">Task</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ProcessFatigue</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">apiUrl</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">accessToken</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">rosterData</span><span class="p">)</span>
+</span><span id="__span-9-32"><a href="#__codelineno-9-32" id="__codelineno-9-32" name="__codelineno-9-32"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-9-33"><a href="#__codelineno-9-33" id="__codelineno-9-33" name="__codelineno-9-33"></a><span class="w">            </span><span class="k">try</span>
+</span><span id="__span-9-34"><a href="#__codelineno-9-34" id="__codelineno-9-34" name="__codelineno-9-34"></a><span class="w">            </span><span class="p">{</span>
+</span><span id="__span-9-35"><a href="#__codelineno-9-35" id="__codelineno-9-35" name="__codelineno-9-35"></a><span class="w">                </span><span class="n">HttpClient</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HttpClient</span><span class="p">();</span>
+</span><span id="__span-9-36"><a href="#__codelineno-9-36" id="__codelineno-9-36" name="__codelineno-9-36"></a><span class="w">                </span><span class="n">client</span><span class="p">.</span><span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromSeconds</span><span class="p">(</span><span class="m">1000</span><span class="p">);</span>
+</span><span id="__span-9-37"><a href="#__codelineno-9-37" id="__codelineno-9-37" name="__codelineno-9-37"></a><span class="w">                </span><span class="n">client</span><span class="p">.</span><span class="n">BaseAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Uri</span><span class="p">(</span><span class="n">apiUrl</span><span class="p">);</span>
+</span><span id="__span-9-38"><a href="#__codelineno-9-38" id="__codelineno-9-38" name="__codelineno-9-38"></a>
+</span><span id="__span-9-39"><a href="#__codelineno-9-39" id="__codelineno-9-39" name="__codelineno-9-39"></a><span class="w">                </span><span class="kt">var</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="p">(</span><span class="n">HttpMethod</span><span class="p">.</span><span class="n">Post</span><span class="p">,</span><span class="w"> </span><span class="s">"/api/Processor/ProcessFatigue"</span><span class="p">);</span>
+</span><span id="__span-9-40"><a href="#__codelineno-9-40" id="__codelineno-9-40" name="__codelineno-9-40"></a>
+</span><span id="__span-9-41"><a href="#__codelineno-9-41" id="__codelineno-9-41" name="__codelineno-9-41"></a><span class="w">                </span><span class="n">request</span><span class="p">.</span><span class="n">Version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Version</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">);</span>
+</span><span id="__span-9-42"><a href="#__codelineno-9-42" id="__codelineno-9-42" name="__codelineno-9-42"></a><span class="w">                </span><span class="n">request</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"authorization"</span><span class="p">,</span><span class="w"> </span><span class="s">$"Bearer {accessToken}"</span><span class="p">);</span>
+</span><span id="__span-9-43"><a href="#__codelineno-9-43" id="__codelineno-9-43" name="__codelineno-9-43"></a>
+</span><span id="__span-9-44"><a href="#__codelineno-9-44" id="__codelineno-9-44" name="__codelineno-9-44"></a><span class="w">                </span><span class="kt">var</span><span class="w"> </span><span class="n">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FatigueProcessorPayload</span>
+</span><span id="__span-9-45"><a href="#__codelineno-9-45" id="__codelineno-9-45" name="__codelineno-9-45"></a><span class="w">                </span><span class="p">{</span>
+</span><span id="__span-9-46"><a href="#__codelineno-9-46" id="__codelineno-9-46" name="__codelineno-9-46"></a><span class="w">                    </span><span class="n">RosterData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rosterData</span><span class="p">,</span>
+</span><span id="__span-9-47"><a href="#__codelineno-9-47" id="__codelineno-9-47" name="__codelineno-9-47"></a><span class="w">                    </span><span class="n">SleepData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">SleepData</span><span class="o">&gt;</span><span class="p">(),</span>
+</span><span id="__span-9-48"><a href="#__codelineno-9-48" id="__codelineno-9-48" name="__codelineno-9-48"></a><span class="w">                    </span><span class="n">PreferredScale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"SP"</span><span class="p">,</span>
+</span><span id="__span-9-49"><a href="#__codelineno-9-49" id="__codelineno-9-49" name="__codelineno-9-49"></a><span class="w">                    </span><span class="n">DateFormat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"dmy"</span><span class="p">,</span>
+</span><span id="__span-9-50"><a href="#__codelineno-9-50" id="__codelineno-9-50" name="__codelineno-9-50"></a><span class="w">                    </span><span class="n">GenerateSleeps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">,</span>
+</span><span id="__span-9-51"><a href="#__codelineno-9-51" id="__codelineno-9-51" name="__codelineno-9-51"></a><span class="w">                    </span><span class="n">SleepSettings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">SleepSetting</span><span class="o">&gt;</span><span class="p">()</span>
+</span><span id="__span-9-52"><a href="#__codelineno-9-52" id="__codelineno-9-52" name="__codelineno-9-52"></a><span class="w">                </span><span class="p">};</span>
+</span><span id="__span-9-53"><a href="#__codelineno-9-53" id="__codelineno-9-53" name="__codelineno-9-53"></a>
+</span><span id="__span-9-54"><a href="#__codelineno-9-54" id="__codelineno-9-54" name="__codelineno-9-54"></a><span class="w">                </span><span class="n">request</span><span class="p">.</span><span class="n">Content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonContent</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">payload</span><span class="p">);</span>
+</span><span id="__span-9-55"><a href="#__codelineno-9-55" id="__codelineno-9-55" name="__codelineno-9-55"></a>
+</span><span id="__span-9-56"><a href="#__codelineno-9-56" id="__codelineno-9-56" name="__codelineno-9-56"></a><span class="w">                </span><span class="kt">var</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">SendAsync</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+</span><span id="__span-9-57"><a href="#__codelineno-9-57" id="__codelineno-9-57" name="__codelineno-9-57"></a><span class="w">                </span><span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">ReadAsStringAsync</span><span class="p">();</span>
+</span><span id="__span-9-58"><a href="#__codelineno-9-58" id="__codelineno-9-58" name="__codelineno-9-58"></a><span class="w">                </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Result: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+</span><span id="__span-9-59"><a href="#__codelineno-9-59" id="__codelineno-9-59" name="__codelineno-9-59"></a><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+</span><span id="__span-9-60"><a href="#__codelineno-9-60" id="__codelineno-9-60" name="__codelineno-9-60"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-9-61"><a href="#__codelineno-9-61" id="__codelineno-9-61" name="__codelineno-9-61"></a><span class="w">            </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span>
+</span><span id="__span-9-62"><a href="#__codelineno-9-62" id="__codelineno-9-62" name="__codelineno-9-62"></a><span class="w">            </span><span class="p">{</span>
+</span><span id="__span-9-63"><a href="#__codelineno-9-63" id="__codelineno-9-63" name="__codelineno-9-63"></a><span class="w">                </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Error: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">);</span>
+</span><span id="__span-9-64"><a href="#__codelineno-9-64" id="__codelineno-9-64" name="__codelineno-9-64"></a><span class="w">                </span><span class="k">throw</span><span class="p">;</span>
+</span><span id="__span-9-65"><a href="#__codelineno-9-65" id="__codelineno-9-65" name="__codelineno-9-65"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-9-66"><a href="#__codelineno-9-66" id="__codelineno-9-66" name="__codelineno-9-66"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-9-67"><a href="#__codelineno-9-67" id="__codelineno-9-67" name="__codelineno-9-67"></a>
+</span><span id="__span-9-68"><a href="#__codelineno-9-68" id="__codelineno-9-68" name="__codelineno-9-68"></a><span class="w">        </span><span class="k">static</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="n">Task</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ProcessFatigueRisk</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">apiUrl</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">accessToken</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">rosterData</span><span class="p">)</span>
+</span><span id="__span-9-69"><a href="#__codelineno-9-69" id="__codelineno-9-69" name="__codelineno-9-69"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-9-70"><a href="#__codelineno-9-70" id="__codelineno-9-70" name="__codelineno-9-70"></a><span class="w">            </span><span class="k">try</span>
+</span><span id="__span-9-71"><a href="#__codelineno-9-71" id="__codelineno-9-71" name="__codelineno-9-71"></a><span class="w">            </span><span class="p">{</span>
+</span><span id="__span-9-72"><a href="#__codelineno-9-72" id="__codelineno-9-72" name="__codelineno-9-72"></a><span class="w">                </span><span class="n">HttpClient</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HttpClient</span><span class="p">();</span>
+</span><span id="__span-9-73"><a href="#__codelineno-9-73" id="__codelineno-9-73" name="__codelineno-9-73"></a><span class="w">                </span><span class="n">client</span><span class="p">.</span><span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromSeconds</span><span class="p">(</span><span class="m">1000</span><span class="p">);</span>
+</span><span id="__span-9-74"><a href="#__codelineno-9-74" id="__codelineno-9-74" name="__codelineno-9-74"></a><span class="w">                </span><span class="n">client</span><span class="p">.</span><span class="n">BaseAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Uri</span><span class="p">(</span><span class="n">apiUrl</span><span class="p">);</span>
+</span><span id="__span-9-75"><a href="#__codelineno-9-75" id="__codelineno-9-75" name="__codelineno-9-75"></a>
+</span><span id="__span-9-76"><a href="#__codelineno-9-76" id="__codelineno-9-76" name="__codelineno-9-76"></a><span class="w">                </span><span class="kt">var</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="p">(</span><span class="n">HttpMethod</span><span class="p">.</span><span class="n">Post</span><span class="p">,</span><span class="w"> </span><span class="s">"/api/Processor/ProcessFatigueRisk"</span><span class="p">);</span>
+</span><span id="__span-9-77"><a href="#__codelineno-9-77" id="__codelineno-9-77" name="__codelineno-9-77"></a>
+</span><span id="__span-9-78"><a href="#__codelineno-9-78" id="__codelineno-9-78" name="__codelineno-9-78"></a><span class="w">                </span><span class="n">request</span><span class="p">.</span><span class="n">Version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Version</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">);</span>
+</span><span id="__span-9-79"><a href="#__codelineno-9-79" id="__codelineno-9-79" name="__codelineno-9-79"></a><span class="w">                </span><span class="n">request</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"authorization"</span><span class="p">,</span><span class="w"> </span><span class="s">$"Bearer {accessToken}"</span><span class="p">);</span>
+</span><span id="__span-9-80"><a href="#__codelineno-9-80" id="__codelineno-9-80" name="__codelineno-9-80"></a>
+</span><span id="__span-9-81"><a href="#__codelineno-9-81" id="__codelineno-9-81" name="__codelineno-9-81"></a><span class="w">                </span><span class="kt">var</span><span class="w"> </span><span class="n">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FatigueProcessorPayload</span>
+</span><span id="__span-9-82"><a href="#__codelineno-9-82" id="__codelineno-9-82" name="__codelineno-9-82"></a><span class="w">                </span><span class="p">{</span>
+</span><span id="__span-9-83"><a href="#__codelineno-9-83" id="__codelineno-9-83" name="__codelineno-9-83"></a><span class="w">                    </span><span class="n">RosterData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rosterData</span><span class="p">,</span>
+</span><span id="__span-9-84"><a href="#__codelineno-9-84" id="__codelineno-9-84" name="__codelineno-9-84"></a><span class="w">                    </span><span class="n">SleepData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">SleepData</span><span class="o">&gt;</span><span class="p">(),</span>
+</span><span id="__span-9-85"><a href="#__codelineno-9-85" id="__codelineno-9-85" name="__codelineno-9-85"></a><span class="w">                    </span><span class="n">PreferredScale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"SP"</span><span class="p">,</span>
+</span><span id="__span-9-86"><a href="#__codelineno-9-86" id="__codelineno-9-86" name="__codelineno-9-86"></a><span class="w">                    </span><span class="n">DateFormat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"dmy"</span><span class="p">,</span>
+</span><span id="__span-9-87"><a href="#__codelineno-9-87" id="__codelineno-9-87" name="__codelineno-9-87"></a><span class="w">                    </span><span class="n">GenerateSleeps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">,</span>
+</span><span id="__span-9-88"><a href="#__codelineno-9-88" id="__codelineno-9-88" name="__codelineno-9-88"></a><span class="w">                    </span><span class="n">SleepSettings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">SleepSetting</span><span class="o">&gt;</span><span class="p">()</span>
+</span><span id="__span-9-89"><a href="#__codelineno-9-89" id="__codelineno-9-89" name="__codelineno-9-89"></a><span class="w">                </span><span class="p">};</span>
+</span><span id="__span-9-90"><a href="#__codelineno-9-90" id="__codelineno-9-90" name="__codelineno-9-90"></a>
+</span><span id="__span-9-91"><a href="#__codelineno-9-91" id="__codelineno-9-91" name="__codelineno-9-91"></a><span class="w">                </span><span class="n">request</span><span class="p">.</span><span class="n">Content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonContent</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">payload</span><span class="p">);</span>
+</span><span id="__span-9-92"><a href="#__codelineno-9-92" id="__codelineno-9-92" name="__codelineno-9-92"></a>
+</span><span id="__span-9-93"><a href="#__codelineno-9-93" id="__codelineno-9-93" name="__codelineno-9-93"></a><span class="w">                </span><span class="kt">var</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">SendAsync</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+</span><span id="__span-9-94"><a href="#__codelineno-9-94" id="__codelineno-9-94" name="__codelineno-9-94"></a><span class="w">                </span><span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">ReadAsStringAsync</span><span class="p">();</span>
+</span><span id="__span-9-95"><a href="#__codelineno-9-95" id="__codelineno-9-95" name="__codelineno-9-95"></a><span class="w">                </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Result: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+</span><span id="__span-9-96"><a href="#__codelineno-9-96" id="__codelineno-9-96" name="__codelineno-9-96"></a><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+</span><span id="__span-9-97"><a href="#__codelineno-9-97" id="__codelineno-9-97" name="__codelineno-9-97"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-9-98"><a href="#__codelineno-9-98" id="__codelineno-9-98" name="__codelineno-9-98"></a><span class="w">            </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span>
+</span><span id="__span-9-99"><a href="#__codelineno-9-99" id="__codelineno-9-99" name="__codelineno-9-99"></a><span class="w">            </span><span class="p">{</span>
+</span><span id="__span-9-100"><a href="#__codelineno-9-100" id="__codelineno-9-100" name="__codelineno-9-100"></a><span class="w">                </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Error: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ex</span><span class="p">.</span><span class="n">Message</span><span class="p">);</span>
+</span><span id="__span-9-101"><a href="#__codelineno-9-101" id="__codelineno-9-101" name="__codelineno-9-101"></a><span class="w">                </span><span class="k">throw</span><span class="p">;</span>
+</span><span id="__span-9-102"><a href="#__codelineno-9-102" id="__codelineno-9-102" name="__codelineno-9-102"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-9-103"><a href="#__codelineno-9-103" id="__codelineno-9-103" name="__codelineno-9-103"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-9-104"><a href="#__codelineno-9-104" id="__codelineno-9-104" name="__codelineno-9-104"></a>
+</span><span id="__span-9-105"><a href="#__codelineno-9-105" id="__codelineno-9-105" name="__codelineno-9-105"></a><span class="w">        </span><span class="k">static</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="n">Task</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Authenticate</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">identityUrl</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">clientId</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">clientSecret</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">scope</span><span class="p">)</span>
+</span><span id="__span-9-106"><a href="#__codelineno-9-106" id="__codelineno-9-106" name="__codelineno-9-106"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-9-107"><a href="#__codelineno-9-107" id="__codelineno-9-107" name="__codelineno-9-107"></a><span class="w">            </span><span class="n">HttpClient</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HttpClient</span><span class="p">();</span>
+</span><span id="__span-9-108"><a href="#__codelineno-9-108" id="__codelineno-9-108" name="__codelineno-9-108"></a><span class="w">            </span><span class="n">client</span><span class="p">.</span><span class="n">BaseAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Uri</span><span class="p">(</span><span class="n">identityUrl</span><span class="p">);</span>
+</span><span id="__span-9-109"><a href="#__codelineno-9-109" id="__codelineno-9-109" name="__codelineno-9-109"></a>
+</span><span id="__span-9-110"><a href="#__codelineno-9-110" id="__codelineno-9-110" name="__codelineno-9-110"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">openIdDiscoveryDocument</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">GetDiscoveryDocumentAsync</span><span class="p">(</span><span class="n">identityUrl</span><span class="p">).</span><span class="n">GetAwaiter</span><span class="p">().</span><span class="n">GetResult</span><span class="p">();</span>
+</span><span id="__span-9-111"><a href="#__codelineno-9-111" id="__codelineno-9-111" name="__codelineno-9-111"></a>
+</span><span id="__span-9-112"><a href="#__codelineno-9-112" id="__codelineno-9-112" name="__codelineno-9-112"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ClientCredentialsTokenRequest</span>
+</span><span id="__span-9-113"><a href="#__codelineno-9-113" id="__codelineno-9-113" name="__codelineno-9-113"></a><span class="w">            </span><span class="p">{</span>
+</span><span id="__span-9-114"><a href="#__codelineno-9-114" id="__codelineno-9-114" name="__codelineno-9-114"></a><span class="w">                </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">openIdDiscoveryDocument</span><span class="p">.</span><span class="n">TokenEndpoint</span><span class="p">,</span>
+</span><span id="__span-9-115"><a href="#__codelineno-9-115" id="__codelineno-9-115" name="__codelineno-9-115"></a>
+</span><span id="__span-9-116"><a href="#__codelineno-9-116" id="__codelineno-9-116" name="__codelineno-9-116"></a><span class="w">                </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clientId</span><span class="p">,</span>
+</span><span id="__span-9-117"><a href="#__codelineno-9-117" id="__codelineno-9-117" name="__codelineno-9-117"></a><span class="w">                </span><span class="n">ClientSecret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clientSecret</span><span class="p">,</span>
+</span><span id="__span-9-118"><a href="#__codelineno-9-118" id="__codelineno-9-118" name="__codelineno-9-118"></a><span class="w">                </span><span class="n">Scope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scope</span>
+</span><span id="__span-9-119"><a href="#__codelineno-9-119" id="__codelineno-9-119" name="__codelineno-9-119"></a><span class="w">            </span><span class="p">};</span>
+</span><span id="__span-9-120"><a href="#__codelineno-9-120" id="__codelineno-9-120" name="__codelineno-9-120"></a>
+</span><span id="__span-9-121"><a href="#__codelineno-9-121" id="__codelineno-9-121" name="__codelineno-9-121"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">tokenResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">RequestClientCredentialsTokenAsync</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+</span><span id="__span-9-122"><a href="#__codelineno-9-122" id="__codelineno-9-122" name="__codelineno-9-122"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tokenResponse</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+</span><span id="__span-9-123"><a href="#__codelineno-9-123" id="__codelineno-9-123" name="__codelineno-9-123"></a><span class="w">            </span><span class="p">{</span>
+</span><span id="__span-9-124"><a href="#__codelineno-9-124" id="__codelineno-9-124" name="__codelineno-9-124"></a><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">tokenResponse</span><span class="p">.</span><span class="n">AccessToken</span><span class="p">;</span>
+</span><span id="__span-9-125"><a href="#__codelineno-9-125" id="__codelineno-9-125" name="__codelineno-9-125"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-9-126"><a href="#__codelineno-9-126" id="__codelineno-9-126" name="__codelineno-9-126"></a><span class="w">            </span><span class="k">else</span>
+</span><span id="__span-9-127"><a href="#__codelineno-9-127" id="__codelineno-9-127" name="__codelineno-9-127"></a><span class="w">            </span><span class="p">{</span>
+</span><span id="__span-9-128"><a href="#__codelineno-9-128" id="__codelineno-9-128" name="__codelineno-9-128"></a><span class="w">                </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Authentication failed"</span><span class="p">);</span>
+</span><span id="__span-9-129"><a href="#__codelineno-9-129" id="__codelineno-9-129" name="__codelineno-9-129"></a><span class="w">                </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">Exception</span><span class="p">(</span><span class="s">"Authentication failed"</span><span class="p">);</span>
+</span><span id="__span-9-130"><a href="#__codelineno-9-130" id="__codelineno-9-130" name="__codelineno-9-130"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-9-131"><a href="#__codelineno-9-131" id="__codelineno-9-131" name="__codelineno-9-131"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-9-132"><a href="#__codelineno-9-132" id="__codelineno-9-132" name="__codelineno-9-132"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-133"><a href="#__codelineno-9-133" id="__codelineno-9-133" name="__codelineno-9-133"></a><span class="p">}</span>
+</span></code></pre></div>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.expand", "navigation.path", "navigation.tracking", "content.code.copy", "content.code.select"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../assets/javascripts/bundle.e1c3ead8.min.js"></script>
+<script>document$.subscribe(() => {
+            window.update_swagger_ui_iframe_height = function (id) {
+                var iFrameID = document.getElementById(id);
+                if (iFrameID) {
+                    full_height = (iFrameID.contentWindow.document.body.scrollHeight + 80) + "px";
+                    iFrameID.height = full_height;
+                    iFrameID.style.height = full_height;
+                }
+            }
+        
+            let iframe_id_list = []
+            var iframes = document.getElementsByClassName("swagger-ui-iframe");
+            for (var i = 0; i < iframes.length; i++) { 
+                iframe_id_list.push(iframes[i].getAttribute("id"))
+            }
+        
+            let ticking = true;
+            
+            document.addEventListener('scroll', function(e) {
+                if (!ticking) {
+                    window.requestAnimationFrame(()=> {
+                        let half_vh = window.innerHeight/2;
+                        for(var i = 0; i < iframe_id_list.length; i++) {
+                            let element = document.getElementById(iframe_id_list[i])
+                            if(element==null){
+                                return
+                            }
+                            let diff = element.getBoundingClientRect().top
+                            if(element.contentWindow.update_top_val){
+                                element.contentWindow.update_top_val(half_vh - diff)
+                            }
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        
+            const dark_scheme_name = "slate"
+            
+            window.scheme = document.body.getAttribute("data-md-color-scheme")
+            const options = {
+                attributeFilter: ['data-md-color-scheme'],
+            };
+            function color_scheme_callback(mutations) {
+                for (let mutation of mutations) {
+                    if (mutation.attributeName === "data-md-color-scheme") {
+                        scheme = document.body.getAttribute("data-md-color-scheme")
+                        var iframe_list = document.getElementsByClassName("swagger-ui-iframe")
+                        for(var i = 0; i < iframe_list.length; i++) {
+                            var ele = iframe_list.item(i);
+                            if (ele) {
+                                if (scheme === dark_scheme_name) {
+                                    ele.contentWindow.enable_dark_mode();
+                                } else {
+                                    ele.contentWindow.disable_dark_mode();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            observer = new MutationObserver(color_scheme_callback);
+            observer.observe(document.body, options);
+            })</script></body>
+</html>
