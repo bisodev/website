@@ -1,0 +1,196 @@
+---
+layout: default
+bodyClass: "page-home"
+---
+<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<div class="intro">
+  <div class="container">
+    <div class="row justify-content-start">
+      <div class="col-12 col-md-7 col-lg-6 order-2 order-md-1">
+        {{ content }}
+        {% if page.show_call_box %}
+          {% include call.html show_button=true %}
+        {% endif %}
+      </div>
+      {% if page.intro_image %}
+      <div class="col-12 col-md-5 col-lg-6 order-1 order-md-2 position-relative">
+        <img alt="{{ page.title }}" class="intro-image{% if page.intro_image_absolute %} intro-image-absolute{% endif %}{% if page.intro_image_hide_on_mobile %} intro-image-hide-mobile{% endif %}" src="{{ page.intro_image | relURL }}" />
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="strip" style="margin-top: 50px; padding-left: 5px;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <small style="text-align: center; margin-bottom: 1px;">Trusted by <span style="color:#EE702C"><b>100+ companies for their developer focused contents</b></span> including</small></a>
+      <div class="grid">
+        <div><img src="images/logo/benzinga_edited.webp" alt="Benzinga" /></div>
+        <div><img src="images/logo/mdb_edited.webp" alt="Mongo DB" /></div>
+        <div><img src="images/logo/imburse_edited.webp" alt="Imburse Payments" /></div>
+        <div><img src="images/logo/Sematext_Logo_edited.webp" alt="Sematext" /></div>
+        <div><img src="images/logo/frmsc-logo.png" alt="FRMSc" /></div>
+        <div><img src="images/logo/yva_edited.webp" alt="Yva.ai" /></div>
+        <div><img src="images/logo/ascend_edited.jpg" alt="Ascend Partners" /></div>
+        <div><img src="images/logo/TIEX_Logo.jpg" alt="Intelligence Exchange" /></div>
+        <div><img src="images/logo/Cataworx-edited.jpg" alt="Cataworx" /></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if site.data.features %}
+<div class="strip strip-grey">
+  <div class="container pt-6 pb-6 pt-md-10 pb-md-10">
+    <div class="row justify-content-center">
+      <a id="why-us"><h1 style="text-align: center; margin-bottom: 1px;">Why us</h1></a>
+      <h3 style="text-align: center; margin-bottom: 30px;"><span style="color:#EE702C"><b>Transform chaos into clarity</b></span>; free your team to focus on the future.</h3>
+      {% for feature in site.data.features %}
+      <div class="col-12 col-md-6 col-lg-4 mb-2">
+        <div class="feature">
+          {% if feature.image %}
+          <div class="feature-image"><img alt="{{ feature.title }} logo" src="{{ feature.image.url | relative_url }}" width="{{ feature.image.width }}" height="{{ feature.image.height }}" /></div>
+          {% endif %}
+          <h2 class="feature-title">{{ feature.title }}</h2>
+          <div class="feature-content">{{ feature.description }}</div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="strip">
+  <div class="container pt-6 pb-6 pb-md-10">
+    <div class="row justify-content-start" style="justify-content: center !important;">
+      {% assign limit = site.home.limit_services | default: 6 %}
+      <a id="what-we-offer"><h1 style="text-align: center; margin-bottom: 1px;">What we offer</h1></a>
+      <h3 style="text-align: center; margin-bottom: 30px;">Technical contents that <span style="color:#EE702C"><b>uplift your brand</b></span>.</h3>
+
+      {% for service in site.services limit: limit %}
+      <div class="col-12 col-md-4 mb-1">
+        <div class="service service-summary">
+          <div class="service-content"style="text-align: center !important;">
+            <h2 class="service-title"><span style="color:#EE702C;">{{ service.title }}</span></h2>
+            <p>{{ service.excerpt | markdownify }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="strip strip-grey">
+  <div class="container pt-6 pb-6 pb-md-10">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <a id="how-we-will-work"><h1 style="text-align: center; margin-bottom: 1px;">How we will work</h1></a>
+        <h3 style="text-align: center; margin-bottom: 30px;">You are a <a href="book">call away</a> from <span style="color:#EE702C"><b>contents that work</b></span>.</h3>
+      </div>
+      <iframe width="100%" height="615"
+      src="https://www.youtube.com/watch?v=H6k8iOWxL4g">
+      </iframe> 
+    </div>
+  </div>
+</div>
+
+{% if site.data.testimonials %}
+<div class="strip">
+  <div class="container pt-6 pb-6" style="background-image: url(../images/illustrations/pointing1.svg); background-size: 30%; background-position: right; background-repeat: no-repeat;">
+    <a id="what-our-clients-say"><h1 style="text-align: center; margin-bottom: 1px;">What our clients say</h1></a>
+    <h3 style="text-align: center; margin-bottom: 30px;">Our team <span style="color:#EE702C"><b>guaranteed the satisfaction of our clients</b></span>.</h3>
+    <div class="card col-md-8 mt-2">
+      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="100000">
+        <div class="w-100 carousel-inner mb-5" role="listbox">
+          {% for testimonial in site.data.testimonials %}
+          {% if testimonial.active %}
+          <div class="carousel-item active">
+          {% endif %}
+          {% if testimonial.inactive %}
+          <div class="carousel-item">
+          {% endif %}
+            <div class="bg"></div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="carousel-caption">
+                  <div class="row">
+                    <div class="col-sm-3 col-4 align-items-start">
+                        <img style ="-webkit-filter: grayscale(100%); filter: grayscale(100%);" src="{{ testimonial.image | relative_url }}" alt="{{ testimonial.company }}" class="img-fluid">
+                    </div>
+                    <div class="col-sm-9 col-8">
+                      <h2><b>{{ testimonial.name }}</b> - <span> {{ testimonial.position }}</span></h2>
+                      <p>{{ testimonial.testimonials }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fas fa-chevron-left"></i></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div> 
+
+    
+
+    <!-- <div class="row" style = "background-image: url(../images/illustrations/pointing1.svg); background-size: 70%; background-repeat: no-repeat;  background-position: right;">
+      {% for testimonial in site.data.testimonials %}
+        <div class="outerdiv innerdiv eachdiv">
+          <div class="div{{ testimonial.index }}">
+            {% if testimonial.image %}
+            <div class="team-image">
+                <img style = "display: inline-block !important; margin-bottom: 10px !important; -webkit-filter: grayscale(100%); filter: grayscale(100%);" width="90" height="90" alt="{{ testimonial.company }}" class="img-fluid mb-2" src="{{ testimonial.image | relative_url }}" />
+            </div>
+            {% endif %}
+            <div class="team-meta">
+                <p class="team-name" style = "margin-bottom: 5px !important;"><b>{{ testimonial.name }}</b></p>
+                <p class="team-description" style = "margin-bottom: 5px !important;">{{ testimonial.position }} | {{ testimonial.company }}</p>
+            </div>
+            <div class="team-content" style = "margin-bottom: 20px !important;">{{ testimonial.testimonials }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div> -->
+
+
+  </div>
+</div>
+{% endif %}
+
+{% if site.data.faqs %}
+<div class="strip strip-grey">
+  <div class="container pt-6 pb-6 pt-md-10 pb-md-10">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <h1 style="text-align: center; margin-bottom: 30px;">Frequently asked questions (FAQs)</h1>
+        {% for faq in site.data.faqs %}
+        <div class="wrap-collabsible"> 
+          <input id="collapsible{{ faq.tabindex }}" class="toggle" type="checkbox"> 
+          <label for="collapsible{{ faq.tabindex }}" class="lbl-toggle" tabindex= "{{ faq.tabindex }}">{{ faq.title }}</label>
+          <div class="collapsible-content">
+            <div class="content-inner">
+              <p> {{ faq.description}} </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}

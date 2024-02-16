@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Tommy Ryan",
+    "position":"Data Scientist",
+    "company":"Intelligence Exchange",
+    "testimonials":"<br />Weesho Lapara team was extremely thorough. They gathered requirements from us and helped us create a very detailed API reference documentation. We very much recommend them.",
+    "index": 1,
+    "image": "images/logo/TIEX_Logo.jpg",
+    "active":true
+  },
+  {
+    "name": "Denisa Tudor",
+    "position":"Head of Marketing",
+    "company":"Sematext",
+    "testimonials":"<br />Weesho Lapara team delivered impressive output. We are very happy with our collaboration and would like to thank for all your help.",
+    "index": 2,
+    "image": "images/logo/Sematext_Logo_edited.webp",
+    "inactive":true  
+  },  
+  {
+    "name": "David Yang",
+    "position":"CEO",
+    "company":"Yva.ai",
+    "testimonials":"<br />Kudos to the Weesho Lapara team. Their technical support docs have been very helpful to our customers. Excited to work with them again.",
+    "index": 3,
+    "image": "images/logo/yva_edited.webp",
+    "inactive":true  
+  },  
+  {
+    "name": "Ricky-Jay Elmer",
+    "position":"Lead Product Owner",
+    "company":"Imburse Payments",
+    "testimonials":"<br />I want to thank you again for your help and support in shaping the foundations for Imburse to successfully articulate our product vision and use cases through Redocly. ",
+    "index": 4,
+    "image": "images/logo/imburse_edited.webp",
+    "inactive":true  
+  }
+]

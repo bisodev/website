@@ -1,0 +1,33 @@
+[
+  {
+    "name": "Amazon",
+    "link": "https://www.amazon.com/s?i=stripbooks&rh=p_27%3AWeesho+Lapara&s=relevancerank&text=Weesho+Lapara&ref=dp_byline_sr_book_1",
+    "image": "images/social/amazon.png"
+  },
+  {
+    "name": "Youtube",
+    "link": "https://www.youtube.com/@weesholapara",
+    "image": "images/social/youtube.png"
+  },
+  {
+      "name": "LinkedIn",
+      "link": "https://www.linkedin.com/company/weesholapara",
+      "image": "images/social/linkedin.png"
+  },
+  {
+    "name": "GitHub",
+    "link": "https://www.github.com/Weesho-Lapara",
+    "image": "images/social/github.png"
+  },
+  {
+      "name": "Upwork",
+      "link": "https://www.upwork.com/o/companies/~01adfa518664af34bb/",
+      "image": "images/social/upwork.png"
+  },
+  {
+    "name": "Email",
+    "link": "mailto:support@weesholapara.com",
+    "image": "images/social/email.png"
+  }
+
+]

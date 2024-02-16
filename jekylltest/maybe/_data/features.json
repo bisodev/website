@@ -1,0 +1,47 @@
+[
+  {
+    "title": "Tech-savvy",
+    "description": "We’re not just writers, we’re tech-savvy writers. We understand the technical jargon and can translate it into user-friendly language.",
+    "image": {
+      "url": "images/features/techwriting.png",
+      "width": 80,
+      "height": 80
+    }
+  },
+  {
+    "title": "Resourceful",
+    "description": "You won’t need to pull your developers or experts away from their work to create content. We are quick to learn and deliver on time.",
+    "image": {
+      "url": "images/features/noun_The Process_1885341.svg",
+      "width": 80,
+      "height": 80
+    }
+  },
+  {
+    "title": "Durablity",
+    "description": "We follow the best documentation and design practices to ensure that your content remains user-friendly, maintainable, and accessible for longer.",
+    "image": {
+      "url": "images/features/passage-of-time.svg",
+      "width": 80,
+      "height": 80
+    }
+  },
+  {
+    "title": "Performance",
+    "description": "We use SEO best practices, and user feedback to craft informative, and persuasive content that attracts and retains your users.",
+    "image": {
+      "url": "images/features/noun_3d modeling_1885342.svg",
+      "width": 80,
+      "height": 80
+    }
+  },
+  {
+    "title": "Support",
+    "description": "We believe in building long-term relationships with our clients. Whether you need a minor tweak or a major overhaul, we’re always ready to assist you. ",
+    "image": {
+      "url": "images/features/support.png",
+      "width": 80,
+      "height": 80
+    }
+  }
+]

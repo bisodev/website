@@ -1,0 +1,39 @@
+[
+  {
+    "title": "How quickly can you deliver the end result?",
+    "description": "It depends. The time depends on the complexity and extent of the content. <a href=\"book\">Book a call with us</a> to get an accurate estimate of time and cost.",
+    "tabindex": 0
+  },
+  {
+    "title": "What are the types of content you can help with?",
+    "description": "We can help you with varied content types. Here are some of the most popular ones.<br /><br /><ul class=\"list-group-numbered\"><li class=\"list-group-item\">User guide</li><li class=\"list-group-item\">How-to guides</li><li class=\"list-group-item\">Tutorials</li><li class=\"list-group-item\">API documentation</li><li class=\"list-group-item\">SDK documentation</li><li class=\"list-group-item\">Comparison articles</li><li class=\"list-group-item\">Listicles</li><li class=\"list-group-item\">Thought leadership articles</li><li class=\"list-group-item\">Regulatory compliance documents like Business Continuity Plans and Disaster Recovery Plans</li><li class=\"list-group-item\">Patent and ISO certification</li></ul>",
+    "tabindex": 1
+  },
+  {
+    "title": "What if I’m not satisfied?",
+    "description": "We’ll continue to work with you until you’re 100% satisfied. If we cannot fix the content even after two rounds of revisions, we will offer a complete re-write or a refund for that piece.",
+    "tabindex": 2
+  },
+  {
+    "title": "What does your team look like?",
+    "description": "We are a small but mighty team of engineering leaders, technical writers (also engineers), editors, and reviewers who have worked across multiple technology products.",
+    "tabindex": 3
+  },
+  {
+    "title": "Do you offer trials?",
+    "description": "Yes, we do paid trials but don't offer any free trials. You can have a look at some of our samples to check the quality of content we produce.<br /><br /><ul class=\"list-group-numbered\"><li class=\"list-group-item\"><a href=\"https://www.benzinga.com/business/best-minecraft-server-hosting-service\" target=\"_blank\">Best Minecraft Server Hosting Service</a></li><li class=\"list-group-item\"><a target=\"_blank\" href=\"https://www.mongodb.com/languages/mern-stack-tutorial\">MERN Stack Tutorial</a></li><li class=\"list-group-item\"><a target=\"_blank\" href=\"https://www.mongodb.com/features/mongodb-authentication\">MongoDB Authentication</a></li><li class=\"list-group-item\"><a target=\"_blank\" href=\"https://sematext.com/blog/python-logging/\">Logging in Python</a></li><li class=\"list-group-item\"><a target=\"_blank\" href=\"https://developers.frmsc.com\">FRMSc Developer Portal</a></li><li class=\"list-group-item\"><a target=\"_blank\" href=\"https://developers.imbursepayments.com\">Imburse Payments Developer Portal</a></li></ul>",
+    "tabindex": 4
+  },
+  {
+    "title": "Can you help us with video tutorials?",
+    "description": "Absolutely. Here is a demo of what we can do.<div class=\"embed-responsive embed-responsive-16by9\"><iframe style=\"background: #333333;\" class=\"embed-responsive-item\" src=\"https://www.youtube.com/watch?v=PiCGgJJ_qT0\" title=\"What is an API?\" width = \"100%\" height = \"600px\"></iframe></div>",
+    "tabindex": 5
+  },
+  {
+    "title": "How do payments work?",
+    "description": "You can opt to either pay fortnightly or create a monthly payment plan. Other payment options are available upon discussion.",
+    "tabindex": 6
+  }
+]
+
+

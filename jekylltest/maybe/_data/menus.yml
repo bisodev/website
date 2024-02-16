@@ -1,0 +1,36 @@
+main:
+  - name: "Home"
+    url: "index.html"
+    weight: 2
+    link: true
+  - name: "Why us"
+    url: "index.html#why-us"
+    weight: 2
+    link: true
+  - name: "What we offer"
+    url: "index.html#what-we-offer"
+    weight: 3
+    link: true
+  - name: "How we will work"
+    url: "index.html#how-we-will-work"
+    weight: 4
+    link: true
+  - name: "What our clients say"
+    url: "index.html#what-our-clients-say"
+    weight: 5
+    link: true
+  - name: "Schedule a Call"
+    url: "/book/"
+    weight: 6
+    button: true
+
+footer:
+  - name: "Home"
+    url: "/"
+    weight: 1
+  - name: "About"
+    url: "/about"
+    weight: 2
+  - name: "Email"
+    url: "mailto:support@weesholapara.com"
+    weight: 3
