@@ -3,11 +3,11 @@
   outline: none;
   z-index: 30;
   cursor: pointer;
-  @include media-breakpoint-up(md) {
-    display: none;
-  }
   &:focus {
     outline: none;
+  }
+  @include media-breakpoint-up(md) {
+    display: none;
   }
   .hamburger-inner,
   .hamburger-inner::before,

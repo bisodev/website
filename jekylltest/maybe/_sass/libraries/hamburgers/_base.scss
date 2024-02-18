@@ -58,7 +58,7 @@
 .hamburger-inner {
   display: block;
   top: 50%;
-  margin-top: math.div($hamburger-layer-height, -2);
+  margin-top: calc($hamburger-layer-height / -2);
   background-color: bisque;
 
   &,
@@ -66,7 +66,7 @@
   &::after {
     width: $hamburger-layer-width;
     height: $hamburger-layer-height;
-    background-color: #ee702c;
+    background-color: $hamburger-layer-color;
     border-radius: $hamburger-layer-border-radius;
     position: absolute;
     transition-property: transform;
